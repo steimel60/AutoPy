@@ -109,6 +109,7 @@ def export_xyz_e57(job):
     gui.press('tab')
     gui.write(new_job_folder + '\\' + job[0] + '_' + job[2] + processed_folder + scene_folder + '\\' + job[0] + '_' + job[2] +'.e57')
     gui.press('enter')
+    time.sleep(1)
     check_for_image(exportPointCloud_png)
     gui.click()
     check_for_image(exportDropBox_png)
