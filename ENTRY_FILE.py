@@ -1,5 +1,6 @@
 from Settings import *
 from deltav_functions import *
+from new_deltav_functions import run_pix
 
 scene_list = []
 pix4d_list = []
@@ -19,9 +20,10 @@ def automate(job_list):
             run_scene(job)
             #print('run scene ' + str(job))
         elif job[3] == 'Pix4D':
-            print('Run pix ' + str(job))
+            run_pix(job)
         else:
             run_scene(job)
-            print('Run Pix4D ' + str(job))
-    #job = ['J8808', CLT, 'buick']
-    #run_scene(job)
+            run_pix(job)
+job_list = [['J8553', CLT, 'kenworth', 'Both'], ['J8553', CLT, 'chevy', 'Both'], ['J8553', CLT, 'hyundai', 'Both']]
+
+automate(job_list)

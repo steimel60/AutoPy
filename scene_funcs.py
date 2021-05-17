@@ -18,6 +18,7 @@ def start():
 
 def close_pop_ups():
     gui.press('enter')
+    time.sleep(10)
     check_for_image(close_png)
     gui.click()
 
@@ -140,10 +141,20 @@ def export_project(job):
     gui.press('enter')
 
 def close_scene():
-    check_for_image(closeScene_png)
-    gui.move(30, -20)
+    #close save success
+    check_for_image(lastOk_png)
     gui.click()
+    #close scene
+    gui.hotkey('alt','f4')
     time.sleep(2)
+    #final save
+    gui.press(['tab', 'enter'])
+    time.sleep(2)
+
+    #check_for_image(closeScene_png)
+    #gui.move(30, -20)
+    #gui.click()
+    #time.sleep(2)
     return True
 
 ##### USED IN OTHER FUNCS########

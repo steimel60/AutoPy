@@ -5,6 +5,7 @@ import glob
 ####### PATHS TO FILES #######
 new_job_template = r'C:\Users\DylanSteimel\Desktop\TestTemplate'
 new_job_folder = r'C:\Users\DylanSteimel\Desktop'
+pix_project = r'C:\Users\DylanSteimel\Documents\pix4d'
 
 ########## APP PATHS ###############
 scene_path = 'C:\Program Files\FARO\SCENE\SCENE.exe'
@@ -15,6 +16,7 @@ CLT = r'C:\Users\DylanSteimel\Documents\Fake_Server\CLT'
 ATL = r'C:\Users\DylanSteimel\Documents\Fake_Server\ATL'
 DEN = r'C:\Users\DylanSteimel\Documents\Fake_Server\DEN'
 NAS = r'C:\Users\DylanSteimel\Documents\Fake_Server\NAS'
+
 
 ######## FOLDERS TO FETCH ################
 drone_folder = r'\Drone'
