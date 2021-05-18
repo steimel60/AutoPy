@@ -8,8 +8,6 @@ import time
 from time import sleep
 from datetime import date
 
-
-
 screen_center = (gui.size()[0] / 2, (gui.size()[1] / 2) - 50)
 
 def start():
