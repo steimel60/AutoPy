@@ -139,11 +139,11 @@ def export_project(job):
     gui.press('enter')
     check_for_image(exportSuccess_png)
     gui.press('enter')
-
-def close_scene():
     #close save success
     check_for_image(lastOk_png)
     gui.click()
+
+def close_scene():
     #close scene
     gui.hotkey('alt','f4')
     time.sleep(2)
