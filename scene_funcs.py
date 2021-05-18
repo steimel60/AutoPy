@@ -313,10 +313,7 @@ def check_for_exports(job):
     xyz = False
     while (e57 == False) or (xyz == False):
         for file in glob.glob(new_job_folder + '\\' + job[0] + '_' + job[2] + processed_folder + scene_folder + '/*'):
-            #print('Searching Folder: ' + new_job_folder + '\\' + job[0] + '_' + job[2] + processed_folder + scene_folder)
             if (new_job_folder + '\\' + job[0] + '_' + job[2] + processed_folder + scene_folder + '\\' + job[0] + '_' + job[2] +'.e57') in file:
-                #print('Found e57\n')
                 e57 = True
             if (new_job_folder + '\\' + job[0] + '_' + job[2] + processed_folder + scene_folder + '\\' + job[0] + '_' + job[2] +'.xyz') in file:
-                #print('Found xyz\n')
                 xyz = True
