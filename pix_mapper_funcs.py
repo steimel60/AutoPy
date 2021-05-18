@@ -44,19 +44,60 @@ def load_pics(job):
         gui.press('up')
     gui.press('enter')
 
+def import_gcp(job):
+    for file in glob.glob(job[1] + '/' + job[0] + '*' + '/Drone/*'):
+        if 'GCP' in file.upper():
+            check_for_image(pixGCP)
+            gui.click()
+            time.sleep(1)
+            gui.press('tab', presses=3)
+            gui.press('enter')
+            time.sleep(1)
+            gui.press('tab', presses=2)
+            gui.write('4326')
+            gui.press('enter')
+            time.sleep(1)
+            gui.press('enter')
+            time.sleep(1)
+            gui.press('tab')
+            time.sleep(1)
+            gui.press('tab')
+            gui.press('enter')
+            time.sleep(1)
+            gui.press('tab', presses=2)
+            gui.press('enter')
+            time.sleep(1)
+            gui.press('tab', presses=5)
+            gui.press('enter')
+            for file in glob.glob(job[1] + '/' + job[0] + '*' + '/*'):
+                if 'Drone' in file:
+                    gui.write(file)
+            gui.press('enter')
+            time.sleep(1)
+            for i in range(0,6):
+                gui.press('tab')
+                time.sleep(1)
+            gui.write('GCP_edit.csv')
+            gui.press('enter')
+            time.sleep(1)
+            gui.press('tab')
+            gui.press('enter')
+            for i in range(0,6):
+                gui.press('tab')
+                time.sleep(1)
+            gui.press('enter')
+
 def start_processing(job):
-    ### Commented out for free version ###
-    #if job[2] != 'site':
-    #    check_for_image(pixDSMOrthoIndex)
-    #    gui.click()
-    #else:
-    #    pass
+    if job[2] != 'site':
+        check_for_image(pixDSMOrthoIndex)
+        gui.click()
+    else:
+        pass
     check_for_image(pixMapperStart)
     gui.click()
 
 def close_pix():
     check_for_image(pixDone)
-    gui.hotkey('alt','f4')
     gui.hotkey('alt','f4')
 
 def copy_files(job):
@@ -69,3 +110,4 @@ def check_for_image(image):
         gui.moveTo(image_location)
         if gui.position() == image_location:
             checking = False
+
