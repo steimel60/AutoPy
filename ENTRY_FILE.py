@@ -1,6 +1,5 @@
 from Settings import *
 from deltav_functions import *
-from new_deltav_functions import run_pix
 
 scene_list = []
 pix4d_list = []

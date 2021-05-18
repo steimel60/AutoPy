@@ -45,8 +45,8 @@ def load_pics(job):
     gui.press('enter')
 
 def import_gcp(job):
-    for file in glob.glob(job[1] + '/' + job[0] + '*' + '/Drone/*'):
-        if 'GCP' in file.upper():
+    for file in glob.glob(new_job_folder + '/' + job[0] + '*' + '/Drone/*'):
+        if 'GCP_EDIT' in file.upper():
             check_for_image(pixGCP)
             gui.click()
             time.sleep(1)
@@ -63,20 +63,24 @@ def import_gcp(job):
             time.sleep(1)
             gui.press('tab')
             gui.press('enter')
+            for i in range (0,6):
+                gui.press('tab')
+                time.sleep(.5)
+            gui.press('up')
             time.sleep(1)
             gui.press('tab', presses=2)
             gui.press('enter')
             time.sleep(1)
             gui.press('tab', presses=5)
             gui.press('enter')
-            for file in glob.glob(job[1] + '/' + job[0] + '*' + '/*'):
+            for file in glob.glob(new_job_folder + '/' + job[0] + '*' + '/*'):
                 if 'Drone' in file:
                     gui.write(file)
             gui.press('enter')
             time.sleep(1)
             for i in range(0,6):
                 gui.press('tab')
-                time.sleep(1)
+                time.sleep(.5)
             gui.write('GCP_edit.csv')
             gui.press('enter')
             time.sleep(1)
@@ -84,7 +88,7 @@ def import_gcp(job):
             gui.press('enter')
             for i in range(0,6):
                 gui.press('tab')
-                time.sleep(1)
+                time.sleep(.5)
             gui.press('enter')
 
 def start_processing(job):
@@ -110,4 +114,3 @@ def check_for_image(image):
         gui.moveTo(image_location)
         if gui.position() == image_location:
             checking = False
-

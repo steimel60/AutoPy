@@ -142,4 +142,3 @@ for job in job_list:
     i+=1
 
 gui.mainloop()
-

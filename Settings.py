@@ -4,8 +4,10 @@ import glob
 
 ####### PATHS TO FILES #######
 new_job_template = 'TestTemplate'
-new_job_folder = r'C:\Users\*\Desktop'
-pix_project = r'C:\Users\*\Documents\pix4d'
+user_profile = os.environ['USERPROFILE']
+
+new_job_folder = user_profile + '/Desktop'
+pix_project = 'C:\\Users\\*\\Documents\\pix4d'
 
 ##########APP PATHS###############
 scene_path = 'C:\Program Files\FARO\SCENE\SCENE.exe'
