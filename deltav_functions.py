@@ -1,16 +1,14 @@
 from Settings import *
 from scene_pics import *
 import scene_funcs as scene
+#import pix_mapper_funcs as pix
 import pyautogui as gui
 import os
 from datetime import date as dt
 import time
 from time import sleep
 
-
-
-
-############## READ JOBS FROM SERVER TXT FILE #######################
+############## READ JOBS FROM SERVER TXT FILE #################
 def find_jobs():
     today = dt.today()
     date = today.strftime("%m-%d-%y")
@@ -58,7 +56,7 @@ def create_local_files(job_list):
         #Copy Drone Data
         #shutil.copytree(job[1] + '\\' + job[0] + drone_folder, new_job_folder + '\\' + job[0] + drone_folder)
         i = 0
-        for file in glob.glob(job[1] + '/*/Drone/*'):
+        for file in glob.glob(job[1] + '/' + job[0] + '*' + '/*Drone*/*'):
             ind = str(i)
             os.rename(file, file.lower())
             if job[2] in file:
@@ -66,14 +64,14 @@ def create_local_files(job_list):
                 i += 1
         #Copy Scan Data
         i = 0
-        for file in glob.glob(job[1] + '/*/Scans/*'):
+        for file in glob.glob(job[1] + '/' + job[0] + '*' + '/Scans/*'):
             ind = str(i)
             os.rename(file, file.lower())
             if (job[2] in file) and ('fls' in file):
                 shutil.copytree(file, new_job_folder + '\\' + job[0] + '_' + job[2] + scan_folder + '\\' + job[2] + '\\' + ind + job[2])
                 i += 1
 
-################## RUN SCENE ########################################
+################## RUN SCENE #####################
 def run_scene(job):
     running = True
     while running:
@@ -101,3 +99,18 @@ def run_scene(job):
         if scene.close_scene() == True:
             running = False
             break
+
+################## RUN PIX #####################
+def run_pix(job):
+    #Open Pix4DMapper
+    pix.start()
+    #Create new project
+    pix.new_project(job)
+    #Load in drone pictures
+    pix.load_pics(job)
+    #Start processing all 3 steps
+    pix.start_processing(job)
+    #Once done processing close Pix4DMapper
+    pix.close_pix()
+    #Copy project to processed folders
+    pix.copy_files(job)
