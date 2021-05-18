@@ -283,7 +283,7 @@ def error_report(job, error):
     today = date.today()
     tdate = today.strftime("%m-%d-%y")
     fileInfo = 'Error ' + error + ' job: ' + job[0] + ' ' + job[2] + '\n'
-    savePath = r'C:\Users\DylanSteimel\Documents\Fake_Server'
+    savePath = r'Z:\Automation Jobs\Automation Errors'
     fileName = 'Error_Report_' + tdate + '.txt'
     completeName = os.path.join(savePath, fileName)
     f = open(completeName, 'a+')
