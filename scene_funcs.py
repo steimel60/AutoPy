@@ -38,10 +38,10 @@ def load_scans(job):
     for file in glob.glob(new_job_folder + '\\' + job[0] + '_' + job[2] + '\\*'):
         if 'Scans' in file:
             scan_check += 1
-    if drone_check > 0:
+    if scan_check > 0:
         pass
     else:
-        error = 'no Drone folder detected for '
+        error = 'no Scans folder detected for '
         error_report(job, error)
         gui.hotkey('alt','f4')
         time.sleep(1)
