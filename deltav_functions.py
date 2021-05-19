@@ -64,10 +64,10 @@ def create_local_files(job_list):
                 i += 1
         #Copy Scan Data
         i = 0
-        for file in glob.glob(job[1] + '/' + job[0] + '*' + '/Scans/*'):
+        for file in glob.glob(job[1] + '/' + job[0] + '*' + '/*Scan*/*'):
             ind = str(i)
             name = file.lower()
-            if (job[2] in name) and ('fls' in name):
+            if (job[2] in name) and (name.endswith('fls')):
                 shutil.copytree(file, new_job_folder + '\\' + job[0] + '_' + job[2] + scan_folder + '\\' + job[2] + '\\' + ind + job[2])
                 i += 1
         get_gcp(job)
@@ -127,22 +127,23 @@ def run_pix(job):
 
 ################## GET GCP #####################
 def get_gcp(job):
-    for file in glob.glob(job[1] + job[0] + '*' + '/*GCP*/*'):
-        name = file.lower()
-        if 'zip' in name:
-            shutil.copy(file, new_job_folder + '\\' + job[0] + '_' + job[2] + drone_folder)
-    # Create a ZipFile Object and load sample.zip in it
-            with ZipFile(file, 'r') as zipObj:
-               # Get a list of all archived file names from the zip
-               listOfFileNames = zipObj.namelist()
-               # Iterate over the file names
-               for fileName in listOfFileNames:
-                   # Check filename endswith csv
-                   #print(fileName)
-                   if fileName.endswith('.csv'):
-                       # Extract a single file from zip
-                       zipObj.extract(fileName, new_job_folder + '\\' + job[0] + '_' + job[2] + drone_folder)
-                       df = pd.read_csv(new_job_folder + '\\' + job[0] + '_' + job[2] + drone_folder + '\\'+ fileName)
-                       #create upload file
-                       df2 = df[['OBJECTID', 'Latitude', 'Longitude', 'Altitude']].copy().dropna()
-                       df2.to_csv(new_job_folder + '\\' + job[0] + '_' + job[2] + drone_folder + '\\' + 'GCP_edit.csv', header = None, index = False)
+    if job[3] == 'site':
+        for file in glob.glob(job[1] + job[0] + '*' + '/*GCP*/*'):
+            name = file.lower()
+            if 'zip' in name:
+                shutil.copy(file, new_job_folder + '\\' + job[0] + '_' + job[2] + drone_folder)
+        # Create a ZipFile Object and load sample.zip in it
+                with ZipFile(file, 'r') as zipObj:
+                   # Get a list of all archived file names from the zip
+                   listOfFileNames = zipObj.namelist()
+                   # Iterate over the file names
+                   for fileName in listOfFileNames:
+                       # Check filename endswith csv
+                       #print(fileName)
+                       if fileName.endswith('.csv'):
+                           # Extract a single file from zip
+                           zipObj.extract(fileName, new_job_folder + '\\' + job[0] + '_' + job[2] + drone_folder)
+                           df = pd.read_csv(new_job_folder + '\\' + job[0] + '_' + job[2] + drone_folder + '\\'+ fileName)
+                           #create upload file
+                           df2 = df[['OBJECTID', 'Latitude', 'Longitude', 'Altitude']].copy().dropna()
+                           df2.to_csv(new_job_folder + '\\' + job[0] + '_' + job[2] + drone_folder + '\\' + 'GCP_edit.csv', header = None, index = False)
