@@ -277,6 +277,7 @@ def handle_errors(job):
         if error_check2 == True:
             error = 'processing'
             error_report(job, error)
+            gui.hotkey('alt', 'f4')
             return True
 
 def error_report(job, error):
