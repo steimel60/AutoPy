@@ -8,8 +8,6 @@ import time
 from time import sleep
 from datetime import date
 
-
-
 screen_center = (gui.size()[0] / 2, (gui.size()[1] / 2) - 50)
 
 def start():
@@ -286,7 +284,7 @@ def error_report(job, error):
     today = date.today()
     tdate = today.strftime("%m-%d-%y")
     fileInfo = 'Error ' + error + ' job: ' + job[0] + ' ' + job[2] + '\n'
-    savePath = r'C:\Users\DylanSteimel\Documents\Fake_Server'
+    savePath = r'Z:\Automation Jobs\Automation Errors'
     fileName = 'Error_Report_' + tdate + '.txt'
     completeName = os.path.join(savePath, fileName)
     f = open(completeName, 'a+')
@@ -314,10 +312,7 @@ def check_for_exports(job):
     xyz = False
     while (e57 == False) or (xyz == False):
         for file in glob.glob(new_job_folder + '\\' + job[0] + '_' + job[2] + processed_folder + scene_folder + '/*'):
-            #print('Searching Folder: ' + new_job_folder + '\\' + job[0] + '_' + job[2] + processed_folder + scene_folder)
             if (new_job_folder + '\\' + job[0] + '_' + job[2] + processed_folder + scene_folder + '\\' + job[0] + '_' + job[2] +'.e57') in file:
-                #print('Found e57\n')
                 e57 = True
             if (new_job_folder + '\\' + job[0] + '_' + job[2] + processed_folder + scene_folder + '\\' + job[0] + '_' + job[2] +'.xyz') in file:
-                #print('Found xyz\n')
                 xyz = True

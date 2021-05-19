@@ -1,5 +1,7 @@
 from Settings import *
 from scene_pics import *
+from deltav_functions import *
+from ENTRY_FILE import *
 import re
 import glob
 import os
@@ -10,6 +12,5 @@ from time import sleep
 from datetime import date
 
 
-job = ['J7968',DEN,'chevy','Scene']
-scene.export_xyz_e57(job)
-scene.export_project(job)
+job = ['J8808',CLT,'site','Pix4D']
+pix.import_gcp(job)
