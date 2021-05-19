@@ -101,13 +101,15 @@ def import_gcp(job):
             gui.press('up')
             time.sleep(1)
             gui.press('tab', presses=2)
+            time.sleep(1)
             gui.press('enter')
             time.sleep(1)
             gui.press('tab', presses=5)
             gui.press('enter')
-            for file in glob.glob(new_job_folder + '/' + job[0] + '*' + '/*'):
+            for file in glob.glob(new_job_folder + '/' + job[0] + '_' + job[2] + '/*'):
                 if 'Drone' in file:
                     gui.write(file)
+                    break
             gui.press('enter')
             time.sleep(1)
             for i in range(0,6):
