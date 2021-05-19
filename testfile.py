@@ -11,6 +11,6 @@ import time
 from time import sleep
 from datetime import date
 
-
-job = ['J8808',CLT,'site','Pix4D']
-pix.import_gcp(job)
+jobs = [['J7968', DEN, 'site', 'Pix4D'],['J8553', CLT, 'trailer', 'Pix4D']]
+for job in jobs:
+    run_pix(job)

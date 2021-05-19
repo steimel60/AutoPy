@@ -1,17 +1,9 @@
 from Settings import *
 from deltav_functions import *
 
-scene_list = []
-pix4d_list = []
-job_list = []
-
-
 def automate(job_list):
-    ########GET LIST OF JOBS TO PROCESS############
-    #job_list, scene_list, pix4d_list = find_jobs()
-
     ############ COPY FILES FROM SERVER ############
-    create_local_files(job_list)
+    #create_local_files(job_list)
 
     ################# RUN JOBS #####################
     for job in job_list:

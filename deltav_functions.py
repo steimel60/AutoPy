@@ -103,20 +103,27 @@ def run_scene(job):
 
 ################## RUN PIX #####################
 def run_pix(job):
-    #Open Pix4DMapper
-    pix.start()
-    #Create new project
-    pix.new_project(job)
-    #Load in drone pictures
-    pix.load_pics(job)
-    #Get GCP
-    pix.import_gcp(job)
-    #Start processing all 3 steps
-    pix.start_processing(job)
-    #Once done processing close Pix4DMapper
-    pix.close_pix()
-    #Copy project to processed folders
-    pix.copy_files(job)
+    running = True
+    while running:
+        #Open Pix4DMapper
+        pix.start()
+        #Create new project
+        pix.new_project(job)
+        #Load in drone pictures
+        if pix.load_pics(job) == True:
+            running = False
+            break
+        #Get GCP
+        if job[2] == 'site':
+            pix.import_gcp(job)
+        #Start processing all 3 steps
+        pix.start_processing(job)
+        #Once done processing close Pix4DMapper
+        pix.close_pix()
+        #Copy project to processed folders
+        if pix.copy_files(job) == True:
+            running = False
+            break
 
 ################## GET GCP #####################
 def get_gcp(job):
@@ -137,5 +144,5 @@ def get_gcp(job):
                        zipObj.extract(fileName, new_job_folder + '\\' + job[0] + '_' + job[2] + drone_folder)
                        df = pd.read_csv(new_job_folder + '\\' + job[0] + '_' + job[2] + drone_folder + '\\'+ fileName)
                        #create upload file
-                       df2 = df[['OBJECTID', 'Latitude', 'Longitude', 'Altitude']].copy()
+                       df2 = df[['OBJECTID', 'Latitude', 'Longitude', 'Altitude']].copy().dropna()
                        df2.to_csv(new_job_folder + '\\' + job[0] + '_' + job[2] + drone_folder + '\\' + 'GCP_edit.csv', header = None, index = False)

@@ -6,12 +6,15 @@ import os
 import pyautogui as gui
 import time
 from time import sleep
+from datetime import date
 
 screen_center = (gui.size()[0] / 2, (gui.size()[1] / 2) - 50)
 
 def start():
     os.startfile(pix_mapper_path)
-    time.sleep(15)
+    time.sleep(8)
+    check_for_image(pixBeforeNew)
+    gui.click()
 
 def new_project(job):
     gui.hotkey('ctrl','n')
@@ -24,25 +27,54 @@ def new_project(job):
     time.sleep(1)
 
 def load_pics(job):
-    gui.write(new_job_folder + '\\' + job[0] + '_' + job[2] + drone_folder + '\\' + job[2] + '\\' + '0' + job[2])
-    gui.press('enter')
-    time.sleep(2)
-    gui.press('enter')
-    time.sleep(2)
-    gui.press('enter')
-    time.sleep(5)
-    gui.press('tab',presses=5)
-    time.sleep(5)
-    gui.press('enter')
-    time.sleep(1)
-    gui.press('enter')
-    time.sleep(10)
-    if job[2] != 'site':
-        gui.press('down')
+    JPGs = []
+    drone_check = 0
+    for file in glob.glob(new_job_folder + '\\' + job[0] + '_' + job[2] + '\\*'):
+        if 'Drone' in file:
+            drone_check += 1
+    if drone_check > 0:
+        pass
     else:
-        gui.press('down')
-        gui.press('up')
-    gui.press('enter')
+        error = 'no Drone folder detected for '
+        error_report(job, error)
+        gui.hotkey('alt','f4')
+        time.sleep(1)
+        gui.hotkey('alt','f4')
+        time.sleep(1)
+        gui.hotkey('alt','f4')
+        time.sleep(1)
+        return True
+    for file in glob.glob(new_job_folder + '\\' + job[0] + '_' + job[2] + drone_folder + '\\' + job[2] + '\\' + '0' + job[2] + '\\*'):
+        if file.endswith('.JPG'):
+            JPGs.append(file)
+    if len(JPGs) > 0:
+        gui.write(new_job_folder + '\\' + job[0] + '_' + job[2] + drone_folder + '\\' + job[2] + '\\' + '0' + job[2])
+        gui.press('enter')
+        time.sleep(2)
+        gui.press('enter')
+        time.sleep(2)
+        gui.press('enter')
+        time.sleep(5)
+        gui.press('tab',presses=5)
+        time.sleep(5)
+        gui.press('enter')
+        time.sleep(1)
+        gui.press('enter')
+        time.sleep(10)
+        if job[2] != 'site':
+            gui.press('down')
+        else:
+            gui.press('down')
+            gui.press('up')
+        gui.press('enter')
+    else:
+        error = 'with Drone folder organization for '
+        error_report(job, error)
+        gui.hotkey('alt','f4')
+        gui.hotkey('alt','f4')
+        gui.hotkey('alt','f4')
+        return True
+
 
 def import_gcp(job):
     for file in glob.glob(new_job_folder + '/' + job[0] + '*' + '/Drone/*'):
@@ -93,8 +125,10 @@ def import_gcp(job):
 
 def start_processing(job):
     if job[2] != 'site':
-        check_for_image(pixDSMOrthoIndex)
-        gui.click()
+######### COMMENTED OUT FOR PIX DISCOVER #############
+        #check_for_image(pixDSMOrthoIndex)
+        #gui.click()
+        pass
     else:
         pass
     check_for_image(pixMapperStart)
@@ -102,10 +136,12 @@ def start_processing(job):
 
 def close_pix():
     check_for_image(pixDone)
+    gui.click()
     gui.hotkey('alt','f4')
 
 def copy_files(job):
     shutil.copytree(pix_project + '\\' + job[0] + '_' + job[2], new_job_folder + '\\' + job[0] + '_' + job[2] + processed_folder + pix4d_folder + '\\' + job[0] + '_' + job[2])
+    return True
 
 def check_for_image(image):
     checking = True
@@ -114,3 +150,14 @@ def check_for_image(image):
         gui.moveTo(image_location)
         if gui.position() == image_location:
             checking = False
+
+def error_report(job, error):
+    today = date.today()
+    tdate = today.strftime("%m-%d-%y")
+    fileInfo = 'Error ' + error + 'job: ' + job[0] + ' ' + job[2] + '\n'
+    savePath = r'Z:\Automation Jobs\Automation Errors'
+    fileName = 'Error_Report_' + tdate + '.txt'
+    completeName = os.path.join(savePath, fileName)
+    f = open(completeName, 'a+')
+    f.write(fileInfo)
+    f.close()

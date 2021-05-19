@@ -7,7 +7,7 @@ new_job_template = 'TestTemplate'
 user_profile = os.environ['USERPROFILE']
 
 new_job_folder = user_profile + '/Desktop'
-pix_project = 'C:\\Users\\*\\Documents\\pix4d'
+pix_project = user_profile + '\\Documents\\pix4d'
 
 ##########APP PATHS###############
 scene_path = 'C:\Program Files\FARO\SCENE\SCENE.exe'
