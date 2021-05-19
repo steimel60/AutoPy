@@ -34,6 +34,22 @@ def new_project(job):
     time.sleep(3)
 
 def load_scans(job):
+    scan_check = 0
+    for file in glob.glob(new_job_folder + '\\' + job[0] + '_' + job[2] + '\\*'):
+        if 'Scans' in file:
+            scan_check += 1
+    if drone_check > 0:
+        pass
+    else:
+        error = 'no Drone folder detected for '
+        error_report(job, error)
+        gui.hotkey('alt','f4')
+        time.sleep(1)
+        gui.hotkey('alt','f4')
+        time.sleep(1)
+        gui.hotkey('alt','f4')
+        time.sleep(1)
+        return True
     check_for_image(import_png)
     gui.click()
     check_for_image(importscans_png)
