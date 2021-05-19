@@ -8,9 +8,6 @@ job_list = []
 
 
 def automate(job_list):
-    ########GET LIST OF JOBS TO PROCESS############
-    #job_list, scene_list, pix4d_list = find_jobs()
-
     ############ COPY FILES FROM SERVER ############
     create_local_files(job_list)
 
@@ -24,3 +21,6 @@ def automate(job_list):
         else:
             run_scene(job)
             run_pix(job)
+job_list = [['J8553', CLT, 'site', 'Both'], ['J8553', CLT, 'kenworth', 'Both'], ['J8553', CLT, 'chevy', 'Scene'], ['J8553', CLT, 'hyundai', 'Both']]
+
+run_scene(job_list[3])
