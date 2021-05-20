@@ -35,10 +35,10 @@ def new_project(job):
 
 def load_scans(job):
     scan_check = 0
-    for file in glob.glob(new_job_folder + '\\' + job[0] + '_' + job[2] + '\\*'):
+    for file in glob.glob(new_job_folder + '\\' + job[0] + '_' + job[2] + '\\' + job[2] + '\\'):
         if 'Scans' in file:
             scan_check += 1
-    if scan_check > 0:
+    if scan_check > 2:
         pass
     else:
         error = 'no Scans folder detected for '
