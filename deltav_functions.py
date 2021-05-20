@@ -57,21 +57,24 @@ def create_local_files(job_list):
             shutil.copytree(new_job_template, new_job_folder + '\\' + job[0] + '_' + job[2])
             #Copy Drone Data
             i = 0
-            for file in glob.glob(job[1] + '/' + job[0] + '*' + '/*Drone*/*'):
-                ind = str(i)
-                name = file.lower()
-                if job[2] in name:
-                    shutil.copytree(file, new_job_folder + '\\' + job[0] + '_' + job[2] + drone_folder + '\\' + job[2] + '\\' + ind + job[2])
-                    i += 1
+            if job[3] != 'Scene':
+                get_gcp(job)
+                for file in glob.glob(job[1] + '/' + job[0] + '*' + '/*Drone*/*'):
+                    ind = str(i)
+                    name = file.lower()
+                    if job[2].lower() in name:
+                        shutil.copytree(file, new_job_folder + '\\' + job[0] + '_' + job[2] + drone_folder + '\\' + job[2] + '\\' + ind + job[2])
+                        i += 1
             #Copy Scan Data
             i = 0
-            for file in glob.glob(job[1] + '/' + job[0] + '*' + '/*Scan*/*'):
-                ind = str(i)
-                name = file.lower()
-                if (job[2] in name) and (name.endswith('fls')):
-                    shutil.copytree(file, new_job_folder + '\\' + job[0] + '_' + job[2] + scan_folder + '\\' + job[2] + '\\' + ind + job[2])
-                    i += 1
-            get_gcp(job)
+            if job[3] != 'Pix4D':
+                for file in glob.glob(job[1] + '/' + job[0] + '*' + '/*Scan*/*'):
+                    ind = str(i)
+                    name = file.lower()
+                    if (job[2].lower() in name) and (name.endswith('fls')):
+                        shutil.copytree(file, new_job_folder + '\\' + job[0] + '_' + job[2] + scan_folder + '\\' + job[2] + '\\' + ind + job[2])
+                        i += 1
+
         except Exception as e:
             scene.error_report(job, str(e))
 

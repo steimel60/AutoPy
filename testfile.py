@@ -1,5 +1,6 @@
 from Settings import *
 from scene_pics import *
+from ENTRY_FILE import *
 import scene_funcs as scene
 import pix_mapper_funcs as pix
 import pyautogui as gui
@@ -9,12 +10,14 @@ import time
 from time import sleep
 from datetime import date
 import random
+import re
 
 
 
 job_list = []
-scans_exist = False
-for i in  range(0,20):
+
+for i in  range(0,10):
+    scans_exist = False
     job = random.choice(os.listdir(CLT))
     if job[0] == 'J':
         pass
