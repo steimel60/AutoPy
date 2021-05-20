@@ -7,11 +7,12 @@ import pyautogui as gui
 import time
 from time import sleep
 from datetime import date
+import subprocess
 
 screen_center = (gui.size()[0] / 2, (gui.size()[1] / 2) - 50)
 
 def start():
-    os.startfile(pix_mapper_path)
+    window = subprocess.Popen(pix_mapper_path)
     time.sleep(8)
     check_for_image(pixBeforeNew)
     gui.click()
@@ -138,8 +139,7 @@ def start_processing(job):
 
 def close_pix():
     check_for_image(pixDone)
-    gui.click()
-    gui.hotkey('alt','f4')
+    window.terminate()
 
 def copy_files(job):
     shutil.copytree(pix_project + '\\' + job[0] + '_' + job[2], new_job_folder + '\\' + job[0] + '_' + job[2] + processed_folder + pix4d_folder + '\\' + job[0] + '_' + job[2])
