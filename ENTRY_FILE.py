@@ -3,7 +3,7 @@ from deltav_functions import *
 
 def automate(job_list):
     ############ COPY FILES FROM SERVER ############
-    create_local_files(job_list)
+    #create_local_files(job_list)
 
     ################# RUN JOBS #####################
     for job in job_list:
