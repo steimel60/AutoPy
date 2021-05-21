@@ -16,7 +16,7 @@ import re
 
 job_list = []
 
-for i in  range(0,8):
+for i in  range(0,20):
     drone_exist = False
     job = random.choice(os.listdir(CLT))
     if job[0] == 'J':

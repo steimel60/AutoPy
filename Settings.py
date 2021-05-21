@@ -6,7 +6,7 @@ import glob
 new_job_template = 'TestTemplate'
 user_profile = os.environ['USERPROFILE']
 
-new_job_folder = user_profile + '/Desktop'
+new_job_folder = user_profile + '\\Desktop'
 pix_project = user_profile + '\\Documents\\pix4d'
 
 ##########APP PATHS###############

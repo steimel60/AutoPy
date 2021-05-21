@@ -69,7 +69,6 @@ def load_pics(job):
         error_report(job, error)
         return True
 
-
 def import_gcp(job):
     for file in glob.glob(new_job_folder + '/' + job[0] + '*' + '/Drone/*'):
         if 'GCP_EDIT' in file.upper():
@@ -120,10 +119,11 @@ def import_gcp(job):
             gui.press('enter')
 
 def start_processing(job):
-    if job[2] != 'site':
-######### COMMENTED OUT FOR PIX DISCOVER #############
-        #check_for_image(pixDSMOrthoIndex)
-        #gui.click()
+    #check_for_image(pixDSMOrthoIndex)
+    #gui.click()
+    if job[2] == 'site':
+        check_for_image(pixPointCloudMesh)
+        gui.click()
         pass
     else:
         pass
@@ -136,7 +136,7 @@ def close_pix():
 
 def copy_files(job):
     shutil.copytree(pix_project + '\\' + job[0] + '_' + job[2], new_job_folder + '\\' + job[0] + '_' + job[2] + processed_folder + pix4d_folder + '\\' + job[0] + '_' + job[2])
-    shutil.copy(pix_project + '\\' + job[0] + '_' + job[2], new_job_folder + '\\' + job[0] + '_' + job[2] + processed_folder + pix4d_folder + '\\' + job[0] + '_' + job[2] + '.p4d')
+    shutil.copy(pix_project + '\\' + job[0] + '_' + job[2] + '.p4d', new_job_folder + '\\' + job[0] + '_' + job[2] + processed_folder + pix4d_folder )
     return True
 
 def check_for_image(image):
