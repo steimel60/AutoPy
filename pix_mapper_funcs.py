@@ -18,6 +18,8 @@ def start():
     gui.click()
 
 def new_project(job):
+    check_for_image(pixBeforeNew)
+    gui.click()
     gui.hotkey('ctrl','n')
     gui.write(job[0] + '_' + job[2])
     gui.press('tab', presses=3)
@@ -38,12 +40,6 @@ def load_pics(job):
     else:
         error = 'no Drone folder detected for '
         error_report(job, error)
-        gui.hotkey('alt','f4')
-        time.sleep(1)
-        gui.hotkey('alt','f4')
-        time.sleep(1)
-        gui.hotkey('alt','f4')
-        time.sleep(1)
         return True
     for file in glob.glob(new_job_folder + '\\' + job[0] + '_' + job[2] + drone_folder + '\\' + job[2] + '\\' + '0' + job[2] + '\\*'):
         if file.endswith('.JPG'):
@@ -71,9 +67,6 @@ def load_pics(job):
     else:
         error = 'with Drone folder organization for '
         error_report(job, error)
-        gui.hotkey('alt','f4')
-        gui.hotkey('alt','f4')
-        gui.hotkey('alt','f4')
         return True
 
 
@@ -136,9 +129,9 @@ def start_processing(job):
         pass
     check_for_image(pixMapperStart)
     gui.click()
+    check_for_image(pixDone)
 
 def close_pix():
-    check_for_image(pixDone)
     window.terminate()
 
 def copy_files(job):

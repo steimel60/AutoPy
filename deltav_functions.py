@@ -120,11 +120,12 @@ def run_pix(job):
     running = True
     while running:
         #Open Pix4DMapper
-        pix.start()
+        window = subprocess.Popen(pix_mapper_path)
         #Create new project
         pix.new_project(job)
         #Load in drone pictures
         if pix.load_pics(job) == True:
+            window.terminate()
             running = False
             break
         #Get GCP
@@ -133,7 +134,7 @@ def run_pix(job):
         #Start processing all 3 steps
         pix.start_processing(job)
         #Once done processing close Pix4DMapper
-        pix.close_pix()
+        window.terminate()
         #Copy project to processed folders
         if pix.copy_files(job) == True:
             running = False
