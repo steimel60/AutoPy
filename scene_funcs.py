@@ -35,43 +35,53 @@ def new_project(job):
     time.sleep(3)
 
 def load_scans(job):
-    scan_check = 0
-    for file in glob.glob(new_job_folder + '\\' + job[0] + '_' + job[2] + '\\' + job[2] + '\\'):
+    scan_check = False
+    close = False
+    for file in glob.glob(new_job_folder + '\\' + job[0] + '_' + job[2] + '\\*'):
         if 'Scans' in file:
-            scan_check += 1
-    if scan_check > 2:
+            scan_check = True
+    if scan_check:
         pass
     else:
         error = 'no Scans folder detected for '
         error_report(job, error)
-        close_scene()
+        close = True
         time.sleep(1)
         return True
-    check_for_image(import_png)
-    gui.click()
-    check_for_image(importscans_png)
-    gui.click()
-    check_for_image(folder_explorer_png)
-    gui.mouseDown()
-    gui.moveTo(screen_center)
-    gui.mouseUp()
-    check_for_image(file_explore_path_png)
-    gui.click()
-    gui.write(new_job_folder + '\\' + job[0] + '_' + job[2] + scan_folder + '\\' + job[2])
-    gui.press('enter')
-    check_for_image(folders_png)
-    gui.click()
-    gui.hotkey('ctrl', 'a')
-        #drag selected folders to side panel
-    check_for_image(selected_png)
-    gui.mouseDown()
-    check_for_image(side_panel_png)
-    gui.mouseUp()
-    check_for_image(cancel_png)
-    gui.click()
-    if import_error(job):
-        return True
 
+    if close == False:
+        scan_count = 0
+        for file in glob.glob(new_job_folder + '\\' + job[0] + '_' + job[2] + '\\' + 'Scans\\' + job[2] + '\\*'):
+            scan_count += 1
+        if scan_count > 2:
+            check_for_image(import_png)
+            gui.click()
+            check_for_image(importscans_png)
+            gui.click()
+            check_for_image(folder_explorer_png)
+            gui.mouseDown()
+            gui.moveTo(screen_center)
+            gui.mouseUp()
+            check_for_image(file_explore_path_png)
+            gui.click()
+            gui.write(new_job_folder + '\\' + job[0] + '_' + job[2] + scan_folder + '\\' + job[2])
+            gui.press('enter')
+            check_for_image(folders_png)
+            gui.click()
+            gui.hotkey('ctrl', 'a')
+                #drag selected folders to side panel
+            check_for_image(selected_png)
+            gui.mouseDown()
+            check_for_image(side_panel_png)
+            gui.mouseUp()
+            check_for_image(cancel_png)
+            gui.click()
+            if import_error(job):
+                return True
+        else:
+            error = 'not enough scans for '
+            error_report(job, error)
+            return True
 def process_scans():
     check_for_image(process_png)
     gui.click()
@@ -281,7 +291,6 @@ def handle_errors(job):
         if error_check2 == True:
             error = 'processing'
             error_report(job, error)
-            close_scene()
             return True
 
 def error_report(job, error):
@@ -316,7 +325,7 @@ def check_for_exports(job):
     xyz = False
     while (e57 == False) or (xyz == False):
         for file in glob.glob(new_job_folder + '\\' + job[0] + '_' + job[2] + processed_folder + scene_folder + '/*'):
-            if (new_job_folder + '\\' + job[0] + '_' + job[2] + processed_folder + scene_folder + '\\' + job[0] + '_' + job[2] +'.e57') in file:
+            if file.endswith('.e57'):
                 e57 = True
-            if (new_job_folder + '\\' + job[0] + '_' + job[2] + processed_folder + scene_folder + '\\' + job[0] + '_' + job[2] +'.xyz') in file:
+            if file.endswith('.xyz'):
                 xyz = True
