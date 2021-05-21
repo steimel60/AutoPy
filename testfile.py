@@ -16,7 +16,7 @@ import re
 
 job_list = []
 
-for i in  range(0,15):
+for i in  range(0,20):
     scans_exist = False
     job = random.choice(os.listdir(CLT))
     if job[0] == 'J':
@@ -48,6 +48,7 @@ for i in  range(0,15):
             print(job_num + ' scans folder organization incompatible')
     else:
         print('No scan folder')
+        i -= 1
 
 for job in job_list:
     print(job)
