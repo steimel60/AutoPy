@@ -9,6 +9,7 @@ import time
 from time import sleep
 from zipfile import ZipFile
 import pandas as pd
+import subprocess
 ############## READ JOBS FROM SERVER TXT FILE #################
 def find_jobs():
     today = dt.today()
@@ -84,29 +85,35 @@ def run_scene(job):
     running = True
     while running:
         #open FARO
-        scene.start()
+        #scene.start()
+        window = subprocess.Popen(scene_path)
+        time.sleep(5)
         #Close license warning and pop up
         scene.close_pop_ups()
         #Open New Project
         scene.new_project(job)
         #Load in scans
         if scene.load_scans(job) == True:
-            scene.close_scene()
+            #scene.close_scene()
+            window.terminate()
             running = False
             break
         #Processing The Scans
         scene.process_scans()
         if scene.check_processing(job) == True:
-            scene.close_scene()
+            #scene.close_scene()
+            window.terminate()
             running = False
             break
         #Export after Successful Processing
         scene.create_point_cloud()
         scene.export_xyz_e57(job)
         scene.export_project(job)
-        if scene.close_scene() == True:
-            running = False
-            break
+        window.terminate()
+        running = False
+        #if scene.close_scene() == True:
+        #    running = False
+        #    break
 
 ################## RUN PIX #####################
 def run_pix(job):

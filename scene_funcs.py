@@ -7,11 +7,12 @@ import pyautogui as gui
 import time
 from time import sleep
 from datetime import date
+import subprocess
 
 screen_center = (gui.size()[0] / 2, (gui.size()[1] / 2) - 50)
 
 def start():
-    os.startfile(scene_path)
+    window = subprocess.Popen(scene_path)
     time.sleep(5)
 
 def close_pop_ups():
@@ -35,19 +36,15 @@ def new_project(job):
 
 def load_scans(job):
     scan_check = 0
-    for file in glob.glob(new_job_folder + '\\' + job[0] + '_' + job[2] + '\\*'):
+    for file in glob.glob(new_job_folder + '\\' + job[0] + '_' + job[2] + '\\' + job[2] + '\\'):
         if 'Scans' in file:
             scan_check += 1
-    if scan_check > 0:
+    if scan_check > 2:
         pass
     else:
         error = 'no Scans folder detected for '
         error_report(job, error)
-        gui.hotkey('alt','f4')
-        time.sleep(1)
-        gui.hotkey('alt','f4')
-        time.sleep(1)
-        gui.hotkey('alt','f4')
+        close_scene()
         time.sleep(1)
         return True
     check_for_image(import_png)
@@ -159,16 +156,7 @@ def export_project(job):
 
 def close_scene():
     #close scene
-    gui.hotkey('alt','f4')
-    time.sleep(2)
-    #final save
-    gui.press(['tab', 'enter'])
-    time.sleep(2)
-
-    #check_for_image(closeScene_png)
-    #gui.move(30, -20)
-    #gui.click()
-    #time.sleep(2)
+    window.terminate()
     return True
 
 ##### USED IN OTHER FUNCS########
@@ -293,7 +281,7 @@ def handle_errors(job):
         if error_check2 == True:
             error = 'processing'
             error_report(job, error)
-            gui.hotkey('alt', 'f4')
+            close_scene()
             return True
 
 def error_report(job, error):
