@@ -61,7 +61,7 @@ def load_pics(job):
         gui.press('enter')
         time.sleep(1)
         gui.press('enter')
-        time.sleep(10)
+        time.sleep(15)
         if job[2] != 'site':
             gui.press('down')
         else:
@@ -143,6 +143,7 @@ def close_pix():
 
 def copy_files(job):
     shutil.copytree(pix_project + '\\' + job[0] + '_' + job[2], new_job_folder + '\\' + job[0] + '_' + job[2] + processed_folder + pix4d_folder + '\\' + job[0] + '_' + job[2])
+    shutil.copy(pix_project + '\\' + job[0] + '_' + job[2], new_job_folder + '\\' + job[0] + '_' + job[2] + processed_folder + pix4d_folder + '\\' + job[0] + '_' + job[2] + '.p4d')
     return True
 
 def check_for_image(image):
