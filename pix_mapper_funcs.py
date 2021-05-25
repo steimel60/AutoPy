@@ -55,9 +55,10 @@ def load_pics(job):
         gui.press('tab',presses=5)
         time.sleep(5)
         gui.press('enter')
-        time.sleep(1)
+        time.sleep(2)
         gui.press('enter')
-        time.sleep(15)
+        check_for_image(pixProcessingOptions)
+        gui.click()
         if job[2] != 'site':
             gui.press('down')
         else:
