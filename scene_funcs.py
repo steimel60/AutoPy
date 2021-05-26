@@ -66,8 +66,10 @@ def load_scans(job):
             gui.click()
             gui.write(new_job_folder + '\\' + job[0] + '_' + job[2] + scan_folder + '\\' + job[2])
             gui.press('enter')
-            check_for_image(folders_png)
-            gui.click()
+            #check_for_image(folders_png)
+            #gui.click()
+            time.sleep(5)
+            gui.press('tab', presses=4)
             gui.hotkey('ctrl', 'a')
                 #drag selected folders to side panel
             check_for_image(selected_png)
