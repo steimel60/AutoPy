@@ -142,7 +142,7 @@ def run_pix(job):
 
 ################## GET GCP #####################
 def get_gcp(job):
-    if job[3] == 'site':
+    if job[2] == 'site':
         for file in glob.glob(job[1] + job[0] + '*' + '/*GCP*/*'):
             name = file.lower()
             if 'zip' in name:

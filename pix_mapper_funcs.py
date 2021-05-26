@@ -47,15 +47,15 @@ def load_pics(job):
     if len(JPGs) > 0:
         gui.write(new_job_folder + '\\' + job[0] + '_' + job[2] + drone_folder + '\\' + job[2] + '\\' + '0' + job[2])
         gui.press('enter')
-        time.sleep(2)
+        time.sleep(10)
         gui.press('enter')
-        time.sleep(2)
+        time.sleep(10)
         gui.press('enter')
-        time.sleep(5)
+        time.sleep(10)
         gui.press('tab',presses=5)
-        time.sleep(5)
+        time.sleep(10)
         gui.press('enter')
-        time.sleep(2)
+        time.sleep(10)
         gui.press('enter')
         check_for_image(pixProcessingOptions)
         gui.click()
@@ -120,6 +120,10 @@ def import_gcp(job):
             gui.press('enter')
 
 def start_processing(job):
+    #########################################UNCOMMENT FOR FINAL###############################################
+    #########################################UNCOMMENT FOR FINAL###############################################
+    #########################################UNCOMMENT FOR FINAL###############################################
+    #########################################UNCOMMENT FOR FINAL###############################################
     #check_for_image(pixDSMOrthoIndex)
     #gui.click()
     if job[2] == 'site':

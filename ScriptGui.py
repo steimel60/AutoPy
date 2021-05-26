@@ -69,7 +69,7 @@ z = 50
 #create GUI
 gui = Tk()
 gui.title('Automation Script')
-gui.geometry('803x600')
+gui.geometry('803x730')
 gui.configure(bg='#292d34')
 windowWidth = gui.winfo_reqwidth()
 windowHeight = gui.winfo_reqheight()
