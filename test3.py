@@ -12,11 +12,13 @@ from datetime import date
 import random
 import re
 
-
-
 job_list = []
 
+<<<<<<< HEAD
 for i in  range(0,15):
+=======
+for i in  range(0,10):
+>>>>>>> e923e87076f359aa84a9dcd501cb957864671490
     drone_exist = False
     job = random.choice(os.listdir(CLT))
     if job[0] == 'J':

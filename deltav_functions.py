@@ -142,10 +142,11 @@ def run_pix(job):
 
 ################## GET GCP #####################
 def get_gcp(job):
-    if job[3] == 'site':
+    if job[2] == 'site':
         for file in glob.glob(job[1] + job[0] + '*' + '/*GCP*/*'):
             name = file.lower()
             if 'zip' in name:
+                print(file)
                 shutil.copy(file, new_job_folder + '\\' + job[0] + '_' + job[2] + drone_folder)
         # Create a ZipFile Object and load sample.zip in it
                 with ZipFile(file, 'r') as zipObj:
