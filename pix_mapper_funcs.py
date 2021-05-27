@@ -13,19 +13,27 @@ screen_center = (gui.size()[0] / 2, (gui.size()[1] / 2) - 50)
 
 def start():
     window = subprocess.Popen(pix_mapper_path)
-    time.sleep(8)
     check_for_image(pixBeforeNew)
+    time.sleep(.3)
     gui.click()
 
 def new_project(job):
     check_for_image(pixBeforeNew)
+    time.sleep(.3)
     gui.click()
+    time.sleep(.3)
     gui.hotkey('ctrl','n')
+    time.sleep(.3)
     gui.write(job[0] + '_' + job[2])
-    gui.press('tab', presses=3)
+    time.sleep(.3)
+    for i in range (0,3):
+        gui.press('tab')
+        time.sleep(.3)
     gui.press('enter')
     time.sleep(1)
-    gui.press('tab', presses=2)
+    for i in range (0,2):
+        gui.press('tab')
+        time.sleep(.3)
     gui.press('enter')
     time.sleep(1)
 
@@ -46,25 +54,33 @@ def load_pics(job):
             JPGs.append(file)
     if len(JPGs) > 0:
         gui.write(new_job_folder + '\\' + job[0] + '_' + job[2] + drone_folder + '\\' + job[2] + '\\' + '0' + job[2])
+        time.sleep(.3)
         gui.press('enter')
-        time.sleep(2)
+        time.sleep(10)
         gui.press('enter')
-        time.sleep(2)
+        time.sleep(10)
         gui.press('enter')
-        time.sleep(5)
-        gui.press('tab',presses=5)
-        time.sleep(5)
+        time.sleep(10)
+        for i in range (0,5):
+            gui.press('tab')
+            time.sleep(.3)
+        time.sleep(10)
         gui.press('enter')
-        time.sleep(2)
+        time.sleep(10)
         gui.press('enter')
         check_for_image(pixProcessingOptions)
         gui.click()
         if job[2] != 'site':
+            time.sleep(.3)
             gui.press('down')
         else:
+            time.sleep(.3)
             gui.press('down')
+            time.sleep(.3)
             gui.press('up')
+            time.sleep(.3)
         gui.press('enter')
+        time.sleep(.3)
     else:
         error = 'with Drone folder organization for '
         error_report(job, error)
@@ -74,13 +90,19 @@ def import_gcp(job):
     for file in glob.glob(new_job_folder + '/' + job[0] + '*' + '/Drone/*'):
         if 'GCP_EDIT' in file.upper():
             check_for_image(pixGCP)
+            time.sleep(.3)
             gui.click()
             time.sleep(1)
-            gui.press('tab', presses=3)
+            for i in range (0,3):
+                gui.press('tab')
+                time.sleep(.3)
             gui.press('enter')
             time.sleep(1)
-            gui.press('tab', presses=2)
+            for i in range (0,2):
+                gui.press('tab')
+                time.sleep(.3)
             gui.write('4326')
+            time.sleep(.3)
             gui.press('enter')
             time.sleep(1)
             gui.press('enter')
@@ -88,52 +110,66 @@ def import_gcp(job):
             gui.press('tab')
             time.sleep(1)
             gui.press('tab')
+            time.sleep(.3)
             gui.press('enter')
+            time.sleep(.3)
             for i in range (0,6):
                 gui.press('tab')
-                time.sleep(.5)
+                time.sleep(.3)
             gui.press('up')
             time.sleep(1)
-            gui.press('tab', presses=2)
+            for i in range (0,2):
+                gui.press('tab')
+                time.sleep(.3)
             time.sleep(1)
             gui.press('enter')
             time.sleep(1)
-            gui.press('tab', presses=5)
+            for i in range (0,5):
+                gui.press('tab')
+                time.sleep(.3)
             gui.press('enter')
+            time.sleep(.3)
             for file in glob.glob(new_job_folder + '/' + job[0] + '_' + job[2] + '/*'):
                 if 'Drone' in file:
                     gui.write(file)
+                    time.sleep(.3)
                     break
             gui.press('enter')
             time.sleep(1)
             for i in range(0,6):
                 gui.press('tab')
-                time.sleep(.5)
+                time.sleep(.3)
             gui.write('GCP_edit.csv')
+            time.sleep(.3)
             gui.press('enter')
             time.sleep(1)
             gui.press('tab')
+            time.sleep(.3)
             gui.press('enter')
             for i in range(0,6):
                 gui.press('tab')
-                time.sleep(.5)
+                time.sleep(.3)
             gui.press('enter')
+            time.sleep(.3)
 
 def start_processing(job):
+    #########################################UNCOMMENT FOR FINAL###############################################
+    #########################################UNCOMMENT FOR FINAL###############################################
+    #########################################UNCOMMENT FOR FINAL###############################################
+    #########################################UNCOMMENT FOR FINAL###############################################
     #check_for_image(pixDSMOrthoIndex)
     #gui.click()
     if job[2] == 'site':
         check_for_image(pixPointCloudMesh)
+        time.sleep(.3)
         gui.click()
         pass
     else:
         pass
     check_for_image(pixMapperStart)
+    time.sleep(.3)
     gui.click()
     check_for_image(pixDone)
-
-def close_pix():
-    window.terminate()
 
 def copy_files(job):
     shutil.copytree(pix_project + '\\' + job[0] + '_' + job[2], new_job_folder + '\\' + job[0] + '_' + job[2] + processed_folder + pix4d_folder + '\\' + job[0] + '_' + job[2])

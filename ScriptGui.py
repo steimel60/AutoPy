@@ -10,7 +10,13 @@ from PIL import Image, ImageTk
 def find_jobs():
     today = date.today()
     tdate = today.strftime("%m-%d-%y")
-    text_file = open(text_path + '\\' + tdate + '.txt', 'r')
+    try:
+        text_file = open(text_path + '\\' + tdate + '.txt', 'r')
+    except:
+        for i in range(11):
+            if i%11 == 0:
+                popup = ctypes.windll.user32.MessageBoxW
+                threading.Thread(target = lambda :popup(None, '      No task file exists', 'Error', 0)).start()
     list = text_file.read().split()
 
     list_o_jobs = []
@@ -69,7 +75,7 @@ z = 50
 #create GUI
 gui = Tk()
 gui.title('Automation Script')
-gui.geometry('803x600')
+gui.geometry('803x730')
 gui.configure(bg='#292d34')
 windowWidth = gui.winfo_reqwidth()
 windowHeight = gui.winfo_reqheight()
