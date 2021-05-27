@@ -13,23 +13,28 @@ screen_center = (gui.size()[0] / 2, (gui.size()[1] / 2) - 50)
 
 def start():
     window = subprocess.Popen(scene_path)
-    time.sleep(5)
+    time.sleep(10)
 
 def close_pop_ups():
     gui.press('enter')
-    time.sleep(10)
     check_for_image(close_png)
+    time.sleep(.3)
     gui.click()
 
 def new_project(job):
     check_for_image(create_png)
+    time.sleep(.3)
     gui.click()
     time.sleep(1)
-    gui.press('tab', presses=2)
+    for i in range (0,2):
+        gui.press('tab')
+        time.sleep(.3)
     time.sleep(1)
     gui.write(job[0] + '_' + job[2])
     time.sleep(1)
-    gui.press('tab', presses=3)
+    for i in range (0,3):
+        gui.press('tab')
+        time.sleep(.3)
     time.sleep(1)
     gui.press('enter')
     time.sleep(3)
@@ -69,7 +74,9 @@ def load_scans(job):
             #check_for_image(folders_png)
             #gui.click()
             time.sleep(5)
-            gui.press('tab', presses=4)
+            for i in range (0,3):
+                gui.press('tab')
+                time.sleep(.3)
             gui.hotkey('ctrl', 'a')
                 #drag selected folders to side panel
             check_for_image(selected_png)
@@ -84,14 +91,19 @@ def load_scans(job):
             error = 'not enough scans for '
             error_report(job, error)
             return True
+
 def process_scans():
     check_for_image(process_png)
+    time.sleep(.3)
     gui.click()
     check_for_image(process_scan_png)
+    time.sleep(.3)
     gui.click()
     check_for_image(big_scan_png)
+    time.sleep(.3)
     gui.click()
     check_for_image(configure_png)
+    time.sleep(.3)
     gui.click()
     time.sleep(2)
     gui.click()
@@ -102,52 +114,67 @@ def check_processing(job):
 
 def create_point_cloud():
     check_for_image(explore_png)
+    time.sleep(.3)
     gui.click()
     time.sleep(5)
     check_for_image(pointCloud_png)
+    time.sleep(.3)
     gui.click()
     time.sleep(1)
     gui.move(0, 55)
+    time.sleep(.3)
     gui.click()
     time.sleep(1)
     gui.press('enter')
     time.sleep(1)
-    #check_for_image(successfulSave_png)
     gui.press('enter')
-    #time.sleep(1)
-    #gui.press('enter')
     check_for_image(cloudDone_png)
+    time.sleep(.3)
     gui.press('enter')
 
 def export_xyz_e57(job):
     check_for_image(exportTab_png)
+    time.sleep(.3)
     gui.click()
-    time.sleep(2)
     check_for_image(exportPointCloud_png)
+    time.sleep(.3)
     gui.click()
     check_for_image(exportDropBox_png)
+    time.sleep(.3)
     gui.click()
     time.sleep(1)
     gui.press('e')
+    time.sleep(.3)
     gui.press('enter')
+    time.sleep(.3)
     gui.press('tab')
+    time.sleep(.3)
     gui.write(new_job_folder + '\\' + job[0] + '_' + job[2] + processed_folder + scene_folder + '\\' + job[0] + '_' + job[2] +'.e57')
+    time.sleep(.3)
     gui.press('enter')
     time.sleep(1)
     check_for_image(exportPointCloud_png)
+    time.sleep(.3)
     gui.click()
     check_for_image(exportDropBox_png)
+    time.sleep(.3)
     gui.click()
     time.sleep(1)
     gui.press('x')
+    time.sleep(.3)
     gui.press('enter')
+    time.sleep(.3)
     gui.press('tab')
+    time.sleep(.3)
     gui.write(new_job_folder + '\\' + job[0] + '_' + job[2] + processed_folder + scene_folder + '\\' + job[0] + '_' + job[2] +'.xyz')
+    time.sleep(.3)
     gui.press('enter')
+    time.sleep(.3)
     check_for_exports(job)
 
 def export_project(job):
     check_for_image(exportProj_png)
+    time.sleep(.3)
     gui.click()
     time.sleep(1)
     #save before export
@@ -155,21 +182,20 @@ def export_project(job):
     time.sleep(1)
     gui.press('enter')
     time.sleep(2)
-    gui.press('tab', presses=3)
+    for i in range (0,3):
+        gui.press('tab')
+        time.sleep(.3)
     time.sleep(1)
     gui.write(new_job_folder + '\\' + job[0] + '_' + job[2] + processed_folder + scene_folder)
     time.sleep(1)
     gui.press('enter')
     check_for_image(exportSuccess_png)
+    time.sleep(.3)
     gui.press('enter')
     #close save success
     check_for_image(lastOk_png)
+    time.sleep(.3)
     gui.click()
-
-def close_scene():
-    #close scene
-    window.terminate()
-    return True
 
 ##### USED IN OTHER FUNCS########
 
@@ -190,59 +216,85 @@ def wait_for_load(image):
 
 def delete_imports():
     check_for_image(import_png)
+    time.sleep(.3)
     gui.click()
     check_for_image(scansMini_png)
+    time.sleep(.3)
     gui.click()
+    time.sleep(.3)
     gui.press('delete')
     time.sleep(1)
     gui.press('enter')
+    time.sleep(.3)
 
 def reprocess(job):
     delete_imports()
     check_for_image(process_png)
+    time.sleep(.3)
     gui.click()
     check_for_image(import_png)
+    time.sleep(.3)
     gui.click()
     check_for_image(importscans_png)
+    time.sleep(.3)
     gui.click()
     check_for_image(folder_explorer_png)
+    time.sleep(.3)
     gui.mouseDown()
     gui.moveTo(screen_center)
+    time.sleep(.3)
     gui.mouseUp()
     check_for_image(file_explore_path_png)
+    time.sleep(.3)
     gui.click()
     gui.write(new_job_folder + '\\' + job[0] + '_' + job[2] + scan_folder + '\\' + job[2])
+    time.sleep(.3)
     gui.press('enter')
     check_for_image(folders_png)
+    time.sleep(.3)
     gui.click()
+    time.sleep(.3)
     gui.hotkey('ctrl', 'a')
         #drag selected folders to side panel
     check_for_image(selected_png)
+    time.sleep(.3)
     gui.mouseDown()
     check_for_image(side_panel2_png)
+    time.sleep(.3)
     gui.mouseUp()
     check_for_image(cancel_png)
+    time.sleep(.3)
     gui.click()
     check_for_image(ok_png)
+    time.sleep(.3)
     gui.click()
     check_for_image(process_png)
+    time.sleep(.3)
     gui.click()
     check_for_image(process_scan_png)
+    time.sleep(.3)
     gui.click()
     check_for_image(big_scan_png)
+    time.sleep(.3)
     gui.click()
     check_for_image(configure_png)
+    time.sleep(.3)
     gui.click()
     check_for_image(scrollBar_png)
+    time.sleep(.3)
     gui.mouseDown()
+    time.sleep(.3)
     gui.move(0,300)
+    time.sleep(.3)
     gui.mouseUp()
     check_for_image(regMethod_png)
+    time.sleep(.3)
     gui.click()
-    time.sleep(1)
     check_for_image(targetBased_png)
+    time.sleep(.3)
     gui.click()
     check_for_image(startProcessing_png)
+    time.sleep(.3)
     gui.click()
 
 def handle_errors(job):
@@ -266,6 +318,7 @@ def handle_errors(job):
                 error_check = True
                 checking = False
     check_for_image(ok_png)
+    time.sleep(.3)
     gui.click()
     if error_check == True:
         reprocess(job)
@@ -289,6 +342,7 @@ def handle_errors(job):
                     error_check2 = True
                     checking2 = False
         check_for_image(ok_png)
+        time.sleep(.3)
         gui.click()
         if error_check2 == True:
             error = 'processing'
@@ -318,6 +372,7 @@ def import_error(job):
             error_report(job, error)
             error_flag = True
     check_for_image(ok_png)
+    time.sleep(.3)
     gui.click()
     if error_flag == True:
         return True
@@ -331,3 +386,4 @@ def check_for_exports(job):
                 e57 = True
             if file.endswith('.xyz'):
                 xyz = True
+            time.sleep(2)
