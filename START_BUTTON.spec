@@ -5,7 +5,7 @@ block_cipher = None
 
 
 a = Analysis(['START_BUTTON.py'],
-             pathex=['C:\\Users\\LandonLeigh\\Documents\\GitHub\\AutoPy'],
+             pathex=['C:\\Users\\DylanSteimel\\Documents\\Python\\AutoPy'],
              binaries=[],
              datas=[],
              hiddenimports=[],
