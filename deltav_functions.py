@@ -59,11 +59,13 @@ def create_local_files(job_list):
             #Copy Drone Data
             i = 0
             if job[3] != 'Scene':
+                print('Searching for GCP job: ' + job[0])
                 get_gcp(job)
                 for file in glob.glob(job[1] + '/' + job[0] + '*' + '/*Drone*/*'):
                     ind = str(i)
                     name = file.lower()
                     if job[2].lower() in name:
+                        print('Copying drone data for job: ' + job[0])
                         shutil.copytree(file, new_job_folder + '\\' + job[0] + '_' + job[2] + drone_folder + '\\' + job[2] + '\\' + ind + job[2])
                         i += 1
             #Copy Scan Data
@@ -73,12 +75,12 @@ def create_local_files(job_list):
                     ind = str(i)
                     name = file.lower()
                     if (job[2].lower() in name) and (name.endswith('fls')):
+                        print('Copying scan data for job: ' + job[0])
                         shutil.copytree(file, new_job_folder + '\\' + job[0] + '_' + job[2] + scan_folder + '\\' + job[2] + '\\' + ind + job[2])
                         i += 1
-
+            print('')
         except Exception as e:
             scene.error_report(job, str(e))
-
 
 ################## RUN SCENE #####################
 def run_scene(job):
@@ -86,80 +88,102 @@ def run_scene(job):
     while running:
         #open FARO
         #scene.start()
+        print('Starting job: ' + job[0])
         window = subprocess.Popen(scene_path)
         time.sleep(5)
         #Close license warning and pop up
+        print('Closing pop ups')
         scene.close_pop_ups()
         #Open New Project
+        print('Opening new project')
         scene.new_project(job)
         #Load in scans
+        print('Opening new scans')
         if scene.load_scans(job) == True:
             #scene.close_scene()
+            print('Closing Scene')
             window.terminate()
             running = False
             break
         #Processing The Scans
+        print('Processing scans')
         scene.process_scans()
         if scene.check_processing(job) == True:
             #scene.close_scene()
+            print('Closing Scene')
             window.terminate()
             running = False
             break
-        #Export after Successful Processing
+        print('Creating point cloud ')
         scene.create_point_cloud()
+        #Export after Successful Processing
+        print('Exporting xyz and e57')
         scene.export_xyz_e57(job)
+        print('Exporting project')
         scene.export_project(job)
+        print('Scene process successful :)\n\n')
         window.terminate()
         running = False
-        #if scene.close_scene() == True:
-        #    running = False
-        #    break
 
 ################## RUN PIX #####################
 def run_pix(job):
     running = True
     while running:
         #Open Pix4DMapper
+        print('Opening Pix4D')
         window = subprocess.Popen(pix_mapper_path)
         #Create new project
+        print('Creating new project')
         pix.new_project(job)
         #Load in drone pictures
+        print('Loading in drone images')
         if pix.load_pics(job) == True:
+            print('Closing pix')
             window.terminate()
             running = False
             break
         #Get GCP
         if job[2] == 'site':
+            print('Importing GCP')
             pix.import_gcp(job)
         #Start processing all 3 steps
+        print('Starting processing')
         pix.start_processing(job)
-        #Once done processing close Pix4DMapper
-        window.terminate()
         #Copy project to processed folders
+        print('Copying files')
         if pix.copy_files(job) == True:
             running = False
             break
+        #Once done processing close Pix4DMapper
+        print('Pix process successful :)\n\n')
+        window.terminate()
+
 
 ################## GET GCP #####################
 def get_gcp(job):
     if job[2] == 'site':
+        print('Searching for GCP folder')
         for file in glob.glob(job[1] + job[0] + '*' + '/*GCP*/*'):
             name = file.lower()
             if 'zip' in name:
-                print(file)
+                print('Found zip')
                 shutil.copy(file, new_job_folder + '\\' + job[0] + '_' + job[2] + drone_folder)
         # Create a ZipFile Object and load sample.zip in it
                 with ZipFile(file, 'r') as zipObj:
                    # Get a list of all archived file names from the zip
                    listOfFileNames = zipObj.namelist()
                    # Iterate over the file names
+                   print('Searching for csv')
                    for fileName in listOfFileNames:
                        # Check filename endswith csv
                        #print(fileName)
                        if fileName.endswith('.csv'):
+                           print('Found csv')
+                           print('Extracting stuff')
                            # Extract a single file from zip
                            zipObj.extract(fileName, new_job_folder + '\\' + job[0] + '_' + job[2] + drone_folder)
                            df = pd.read_csv(new_job_folder + '\\' + job[0] + '_' + job[2] + drone_folder + '\\'+ fileName)
                            #create upload file
                            df2 = df[['OBJECTID', 'Latitude', 'Longitude', 'Altitude']].copy().dropna()
+                           print('Creating new csv')
                            df2.to_csv(new_job_folder + '\\' + job[0] + '_' + job[2] + drone_folder + '\\' + 'GCP_edit.csv', header = None, index = False)

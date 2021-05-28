@@ -157,8 +157,8 @@ def start_processing(job):
     #########################################UNCOMMENT FOR FINAL###############################################
     #########################################UNCOMMENT FOR FINAL###############################################
     #########################################UNCOMMENT FOR FINAL###############################################
-    check_for_image(pixDSMOrthoIndex)
-    gui.click()
+    #check_for_image(pixDSMOrthoIndex)
+    #gui.click()
     if job[2] == 'site':
         check_for_image(pixPointCloudMesh)
         time.sleep(.3)
