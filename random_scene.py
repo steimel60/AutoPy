@@ -16,7 +16,7 @@ import re
 
 job_list = []
 
-for i in  range(0,1):
+for i in  range(0,10):
     scans_exist = False
     job = random.choice(os.listdir(CLT))
     if job[0] == 'J':

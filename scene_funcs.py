@@ -61,16 +61,23 @@ def load_scans(job):
             scan_count += 1
         if scan_count > 2:
             check_for_image(import_png)
+            time.sleep(.3)
             gui.click()
             check_for_image(importscans_png)
+            time.sleep(.3)
             gui.click()
             check_for_image(folder_explorer_png)
+            time.sleep(.3)
             gui.mouseDown()
+            time.sleep(.3)
             gui.moveTo(screen_center)
+            time.sleep(.3)
             gui.mouseUp()
             check_for_image(file_explore_path_png)
+            time.sleep(.3)
             gui.click()
             gui.write(new_job_folder + '\\' + job[0] + '_' + job[2] + scan_folder + '\\' + job[2])
+            time.sleep(.3)
             gui.press('enter')
             #check_for_image(folders_png)
             #gui.click()
@@ -81,11 +88,15 @@ def load_scans(job):
             gui.hotkey('ctrl', 'a')
                 #drag selected folders to side panel
             check_for_image(selected_png)
+            time.sleep(.3)
             gui.mouseDown()
             check_for_image(side_panel_png)
+            time.sleep(.3)
             gui.mouseUp()
             check_for_image(cancel_png)
+            time.sleep(.3)
             gui.click()
+            time.sleep(.3)
             if import_error(job):
                 return True
         else:
