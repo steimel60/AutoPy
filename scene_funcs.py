@@ -17,6 +17,7 @@ def start():
 
 def close_pop_ups():
     gui.press('enter')
+    time.sleep(5)
     check_for_image(close_png)
     time.sleep(.3)
     gui.click()
