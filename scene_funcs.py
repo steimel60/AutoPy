@@ -12,12 +12,25 @@ import subprocess
 screen_center = (gui.size()[0] / 2, (gui.size()[1] / 2) - 50)
 
 def start():
-    window = subprocess.Popen(scene_path)
     time.sleep(10)
+    gui.press('enter')
+    check_for_image(application_png)
+    gui.click()
+    end = time.time() + 10
+    while time.time() < end:
+        image_location = gui.locateCenterOnScreen(maximize_png)
+        gui.moveTo(image_location)
+        if gui.position() == image_location:
+            time.sleep(.3)
+            gui.click()
+            time.sleep(.3)
+            break
+    gui.click()
+    time.sleep(3)
 
 def close_pop_ups():
-    gui.press('enter')
-    time.sleep(5)
+    #gui.press('enter') moved to start func
+    #time.sleep(5)
     check_for_image(close_png)
     time.sleep(.3)
     gui.click()
