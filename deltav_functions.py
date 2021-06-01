@@ -61,21 +61,21 @@ def create_local_files(job_list):
             if job[3] != 'Scene':
                 print('Searching for GCP job: ' + job[0])
                 get_gcp(job)
+                print('Copying drone data for job: ' + job[0])
                 for file in glob.glob(job[1] + '/' + job[0] + '*' + '/*Drone*/*'):
                     ind = str(i)
                     name = file.lower()
                     if job[2].lower() in name:
-                        print('Copying drone data for job: ' + job[0])
                         shutil.copytree(file, new_job_folder + '\\' + job[0] + '_' + job[2] + drone_folder + '\\' + job[2] + '\\' + ind + job[2])
                         i += 1
             #Copy Scan Data
             i = 0
             if job[3] != 'Pix4D':
+                print('Copying scan data for job: ' + job[0])
                 for file in glob.glob(job[1] + '/' + job[0] + '*' + '/*Scan*/*'):
                     ind = str(i)
                     name = file.lower()
                     if (job[2].lower() in name) and (name.endswith('fls')):
-                        print('Copying scan data for job: ' + job[0])
                         shutil.copytree(file, new_job_folder + '\\' + job[0] + '_' + job[2] + scan_folder + '\\' + job[2] + '\\' + ind + job[2])
                         i += 1
             print('')
@@ -90,7 +90,7 @@ def run_scene(job):
         #scene.start()
         print('Starting job: ' + job[0])
         window = subprocess.Popen(scene_path)
-        time.sleep(5)
+        scene.start()
         #Close license warning and pop up
         print('Closing pop ups')
         scene.close_pop_ups()

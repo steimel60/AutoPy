@@ -48,6 +48,8 @@ exportingFlag_png = Image.open('img\\exportingFlag.png')
 errorAutoReg_png = Image.open('img\\project_fail.png')
 errorImport_png = Image.open('img\\import_fail.png')
 ####MISC BUTTONS####
+maximize_png = Image.open('img\\maximize.png')
+application_png = Image.open('img\\application.png')
 file_png = Image.open('img\\scene_file_button.png')
 new_png = Image.open('img\\scene_new_button.png')
 close_png = Image.open('img\\scene_close_png.png')
