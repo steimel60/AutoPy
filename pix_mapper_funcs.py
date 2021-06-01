@@ -12,10 +12,19 @@ import subprocess
 screen_center = (gui.size()[0] / 2, (gui.size()[1] / 2) - 50)
 
 def start():
-    window = subprocess.Popen(pix_mapper_path)
-    check_for_image(pixBeforeNew)
-    time.sleep(.3)
+    check_for_image(pixApplication)
     gui.click()
+    end = time.time() + 10
+    while time.time() < end:
+        image_location = gui.locateCenterOnScreen(maximize)
+        gui.moveTo(image_location)
+        if gui.position() == image_location:
+            time.sleep(.3)
+            gui.click()
+            time.sleep(.3)
+            break
+    gui.click()
+    time.sleep(3)
 
 def new_project(job):
     check_for_image(pixBeforeNew)

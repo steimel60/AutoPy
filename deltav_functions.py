@@ -1,3 +1,4 @@
+
 from Settings import *
 from scene_pics import *
 import scene_funcs as scene
@@ -132,6 +133,7 @@ def run_pix(job):
         #Open Pix4DMapper
         print('Opening Pix4D')
         window = subprocess.Popen(pix_mapper_path)
+        pix.start()
         #Create new project
         print('Creating new project')
         pix.new_project(job)
