@@ -94,7 +94,7 @@ def run_scene(job):
         scene.start()
         #Close license warning and pop up
         print('Closing pop ups')
-        scene.close_pop_ups()
+        #scene.close_pop_ups()
         #Open New Project
         print('Opening new project')
         scene.new_project(job)
@@ -102,7 +102,7 @@ def run_scene(job):
         print('Opening new scans')
         if scene.load_scans(job) == True:
             #scene.close_scene()
-            print('Closing Scene')
+            print('Closing Scene\n')
             window.terminate()
             running = False
             break
@@ -111,7 +111,7 @@ def run_scene(job):
         scene.process_scans()
         if scene.check_processing(job) == True:
             #scene.close_scene()
-            print('Closing Scene')
+            print('Closing Scene\n')
             window.terminate()
             running = False
             break
