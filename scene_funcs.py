@@ -11,6 +11,7 @@ import subprocess
 
 screen_center = (gui.size()[0] / 2, (gui.size()[1] / 2) - 50)
 
+#Maximizes application after it starts
 def start():
     time.sleep(10)
     gui.press('enter')
@@ -28,13 +29,13 @@ def start():
     gui.click()
     time.sleep(3)
 
+#Closes news pop ups at beginning
 def close_pop_ups():
-    #gui.press('enter') moved to start func
-    #time.sleep(5)
     check_for_image(close_png)
     time.sleep(.3)
     gui.click()
 
+#Creates new project
 def new_project(job):
     check_for_image(create_png)
     time.sleep(.3)
@@ -53,6 +54,7 @@ def new_project(job):
     gui.press('enter')
     time.sleep(3)
 
+#Loads in scans from local folder
 def load_scans(job):
     scan_check = False
     close = False
@@ -67,7 +69,6 @@ def load_scans(job):
         close = True
         time.sleep(1)
         return True
-
     if close == False:
         scan_count = 0
         for file in glob.glob(new_job_folder + '\\' + job[0] + '_' + job[2] + '\\' + 'Scans\\' + job[2] + '\\*'):
@@ -92,14 +93,12 @@ def load_scans(job):
             gui.write(new_job_folder + '\\' + job[0] + '_' + job[2] + scan_folder + '\\' + job[2])
             time.sleep(.3)
             gui.press('enter')
-            #check_for_image(folders_png)
-            #gui.click()
             time.sleep(5)
             for i in range (0,3):
                 gui.press('tab')
                 time.sleep(.3)
             gui.hotkey('ctrl', 'a')
-                #drag selected folders to side panel
+            #drag selected folders to side panel
             check_for_image(selected_png)
             time.sleep(.3)
             gui.mouseDown()
@@ -117,6 +116,7 @@ def load_scans(job):
             error_report(job, error)
             return True
 
+#Begins processing of scans
 def process_scans():
     check_for_image(process_png)
     time.sleep(.3)
@@ -133,10 +133,12 @@ def process_scans():
     time.sleep(2)
     gui.click()
 
+#Checks for error or success
 def check_processing(job):
     if handle_errors(job):
         return True
 
+#Creates project point cloud
 def create_point_cloud():
     check_for_image(explore_png)
     time.sleep(.3)
@@ -157,6 +159,7 @@ def create_point_cloud():
     time.sleep(.3)
     gui.press('enter')
 
+#Exports eyz and e57
 def export_xyz_e57(job):
     check_for_image(exportTab_png)
     time.sleep(.3)
@@ -197,6 +200,7 @@ def export_xyz_e57(job):
     time.sleep(.3)
     check_for_exports(job)
 
+#Exports project folder
 def export_project(job):
     check_for_image(exportProj_png)
     time.sleep(.3)
@@ -222,8 +226,9 @@ def export_project(job):
     time.sleep(.3)
     gui.click()
 
-##### USED IN OTHER FUNCS########
+##### USED IN OTHER FUNCS#####
 
+#Checks for image and moves cursor to location
 def check_for_image(image):
     checking = True
     while checking:
@@ -232,6 +237,7 @@ def check_for_image(image):
         if gui.position() == image_location:
             checking = False
 
+#Wait during processing
 def wait_for_load(image):
     waiting = True
     while waiting:
@@ -239,6 +245,7 @@ def wait_for_load(image):
         if gui.position() != image_location:
             waiting = False
 
+#Deletes imports if error importing
 def delete_imports():
     check_for_image(import_png)
     time.sleep(.3)
@@ -252,6 +259,7 @@ def delete_imports():
     gui.press('enter')
     time.sleep(.3)
 
+#Begins processing again if error processing
 def reprocess(job):
     delete_imports()
     check_for_image(process_png)
@@ -280,7 +288,7 @@ def reprocess(job):
     gui.click()
     time.sleep(.3)
     gui.hotkey('ctrl', 'a')
-        #drag selected folders to side panel
+    #drag selected folders to side panel
     check_for_image(selected_png)
     time.sleep(.3)
     gui.mouseDown()
@@ -322,6 +330,7 @@ def reprocess(job):
     time.sleep(.3)
     gui.click()
 
+#Handles errors and reacts accordingly
 def handle_errors(job):
     error_check = False
     checking = True
@@ -374,6 +383,7 @@ def handle_errors(job):
             error_report(job, error)
             return True
 
+#Creates error report when error happens
 def error_report(job, error):
     today = date.today()
     tdate = today.strftime("%m-%d-%y")
@@ -385,6 +395,7 @@ def error_report(job, error):
     f.write(fileInfo)
     f.close()
 
+#Error when importing scans
 def import_error(job):
     time_loop = time.time() + 30
     error_flag = False
@@ -402,6 +413,7 @@ def import_error(job):
     if error_flag == True:
         return True
 
+#Checks files for exports
 def check_for_exports(job):
     e57 = False
     xyz = False

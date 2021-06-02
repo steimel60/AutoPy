@@ -26,7 +26,6 @@ def find_jobs():
     for job in list:
         job2 = job.split(',')
         list_o_jobs.append(job2)
-
     for job in list_o_jobs:
         job[0] = job[0].upper()
     for job in list_o_jobs:
@@ -59,9 +58,8 @@ def confirmList():
             fullRunList.append(jobs[n])
     automate(fullRunList)
 
+#Update scrollregion after starting 'mainloop' when all widgets are in gui
 def on_configure(event):
-    # update scrollregion after starting 'mainloop'
-    # when all widgets are in gui
     gui.configure(scrollregion=gui.bbox('all'))
 
 #Various declarations
@@ -98,6 +96,7 @@ programLabel.pack()
 addFileButton = tk.Button(gui, text='Start', padx=10, pady=5, fg='black', bg='#889099', command=confirmList, font=('Aerial', 14, 'bold'))
 addFileButton.pack()
 
+#Frame in GUI that is scrollable
 class ScrollableFrame(tk.Frame):
     def __init__(self, master, **kwargs):
         tk.Frame.__init__(self, master, **kwargs)

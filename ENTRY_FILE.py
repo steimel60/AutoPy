@@ -14,6 +14,3 @@ def automate(job_list):
         else:
             run_scene(job)
             run_pix(job)
-#job_list = [['J8553', CLT, 'site', 'Both'], ['J8553', CLT, 'kenworth', 'Both'], ['J8553', CLT, 'chevy', 'Scene'], ['J8553', CLT, 'hyundai', 'Both']]
-#job = [['J9013', NAS, 'site', 'Scene'], ['J7897', CLT, 'volvo', 'Scene']]
-#automate(job)

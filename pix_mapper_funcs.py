@@ -11,6 +11,7 @@ import subprocess
 
 screen_center = (gui.size()[0] / 2, (gui.size()[1] / 2) - 50)
 
+#Maximize Pix Mapper after application is started
 def start():
     check_for_image(pixApplication)
     gui.click()
@@ -26,6 +27,7 @@ def start():
     gui.click()
     time.sleep(3)
 
+#Create new project
 def new_project(job):
     check_for_image(pixBeforeNew)
     time.sleep(.3)
@@ -46,6 +48,7 @@ def new_project(job):
     gui.press('enter')
     time.sleep(1)
 
+#Load pictures into project
 def load_pics(job):
     JPGs = []
     drone_check = 0
@@ -95,6 +98,7 @@ def load_pics(job):
         error_report(job, error)
         return True
 
+#If site, import GCP file
 def import_gcp(job):
     for file in glob.glob(new_job_folder + '/' + job[0] + '*' + '/Drone/*'):
         if 'GCP_EDIT' in file.upper():
@@ -161,6 +165,7 @@ def import_gcp(job):
             gui.press('enter')
             time.sleep(.3)
 
+#Start proccessing job, if site, do first step, if vehicle, do all 3 steps
 def start_processing(job):
     #########################################UNCOMMENT FOR FINAL###############################################
     #########################################UNCOMMENT FOR FINAL###############################################
@@ -180,11 +185,15 @@ def start_processing(job):
     gui.click()
     check_for_image(pixDone)
 
+#Copy project files created in processing
 def copy_files(job):
     shutil.copytree(pix_project + '\\' + job[0] + '_' + job[2], new_job_folder + '\\' + job[0] + '_' + job[2] + processed_folder + pix4d_folder + '\\' + job[0] + '_' + job[2])
     shutil.copy(pix_project + '\\' + job[0] + '_' + job[2] + '.p4d', new_job_folder + '\\' + job[0] + '_' + job[2] + processed_folder + pix4d_folder )
     return True
 
+##### USED IN OTHER FUNCS#####
+
+#Check for image function to move cursor to image location
 def check_for_image(image):
     checking = True
     while checking:
@@ -193,6 +202,7 @@ def check_for_image(image):
         if gui.position() == image_location:
             checking = False
 
+#Create error report when error is encountered
 def error_report(job, error):
     today = date.today()
     tdate = today.strftime("%m-%d-%y")

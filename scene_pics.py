@@ -1,6 +1,5 @@
 from PIL import Image
 
-
 ########## Test Image #####################
 test_img = Image.open('img\\test_img.png')
 

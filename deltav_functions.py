@@ -11,6 +11,7 @@ from time import sleep
 from zipfile import ZipFile
 import pandas as pd
 import subprocess
+
 ############## READ JOBS FROM SERVER TXT FILE #################
 def find_jobs():
     today = dt.today()
@@ -25,8 +26,6 @@ def find_jobs():
     for job in list:
         job2 = job.split(',')
         list_o_jobs.append(job2)
-
-
     for job in list_o_jobs:
         job[0] = job[0].upper()
     for job in list_o_jobs:
@@ -88,7 +87,6 @@ def run_scene(job):
     running = True
     while running:
         #open FARO
-        #scene.start()
         print('Starting job: ' + job[0])
         window = subprocess.Popen(scene_path)
         scene.start()
@@ -101,7 +99,6 @@ def run_scene(job):
         #Load in scans
         print('Opening new scans')
         if scene.load_scans(job) == True:
-            #scene.close_scene()
             print('Closing Scene\n')
             window.terminate()
             running = False
@@ -110,12 +107,11 @@ def run_scene(job):
         print('Processing scans')
         scene.process_scans()
         if scene.check_processing(job) == True:
-            #scene.close_scene()
             print('Closing Scene\n')
             window.terminate()
             running = False
             break
-        print('Creating point cloud ')
+        print('Creating point cloud')
         scene.create_point_cloud()
         #Export after Successful Processing
         print('Exporting xyz and e57')
@@ -160,7 +156,6 @@ def run_pix(job):
         print('Pix process successful :)\n\n')
         window.terminate()
 
-
 ################## GET GCP #####################
 def get_gcp(job):
     if job[2] == 'site':
@@ -178,7 +173,6 @@ def get_gcp(job):
                    print('Searching for csv')
                    for fileName in listOfFileNames:
                        # Check filename endswith csv
-                       #print(fileName)
                        if fileName.endswith('.csv'):
                            print('Found csv')
                            print('Extracting stuff')

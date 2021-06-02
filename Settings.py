@@ -1,6 +1,4 @@
-import os
-import shutil
-import glob
+import os, shutil, glob
 
 ####### PATHS TO FILES #######
 new_job_template = 'TestTemplate'

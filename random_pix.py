@@ -1,21 +1,17 @@
+##### This program randomly finds jobs on the server and processes them in Pix4D #####
+
 from Settings import *
 from scene_pics import *
 from ENTRY_FILE import *
 import scene_funcs as scene
 import pix_mapper_funcs as pix
 import pyautogui as gui
-import os
+import os, time, random, re
 from datetime import date as dt
-import time
 from time import sleep
 from datetime import date
-import random
-import re
-
-
 
 job_list = []
-
 
 for i in  range(0,10):
     drone_exist = False
@@ -54,4 +50,5 @@ for i in  range(0,10):
 
 for job in job_list:
     print(job)
+
 automate(job_list)
