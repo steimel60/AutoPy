@@ -1,3 +1,9 @@
+#----------------------------------------------------------------
+#         Step-by-Step functions for Scene Automation
+#----------------------------------------------------------------
+
+
+##### Import Modules #####
 from Settings import *
 from scene_pics import *
 import re

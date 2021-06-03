@@ -1,3 +1,9 @@
+#----------------------------------------------------------------
+#               Script for GUI for Task Creation
+#----------------------------------------------------------------
+
+
+##### Import Modules #####
 import tkinter as tk
 from tkinter import *
 from datetime import date

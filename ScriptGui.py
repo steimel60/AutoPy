@@ -1,3 +1,9 @@
+#----------------------------------------------------------------
+#                Script for GUI to run Automation
+#----------------------------------------------------------------
+
+
+##### Import Modules #####
 import tkinter as tk
 from tkinter import *
 from datetime import date

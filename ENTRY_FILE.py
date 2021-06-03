@@ -1,6 +1,14 @@
 from Settings import *
 from deltav_functions import *
 
+#----------------------------------------------------------------
+#        This file is where we define Automation Steps
+#----------------------------------------------------------------
+
+#----------------------------------------------------------------
+#         See deltav_functions for work flow functions
+#----------------------------------------------------------------
+
 def automate(job_list):
     ############ COPY FILES FROM SERVER ############
     create_local_files(job_list)

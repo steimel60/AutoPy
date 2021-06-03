@@ -1,4 +1,13 @@
+#----------------------------------------------------------------
+#           This file defines work flow functions
+#----------------------------------------------------------------
 
+#----------------------------------------------------------------
+#     See scene_funcs and pix_funcs for step by step functions
+#----------------------------------------------------------------
+
+
+################ Import Modules ######################
 from Settings import *
 from scene_pics import *
 import scene_funcs as scene
@@ -59,15 +68,17 @@ def create_local_files(job_list):
             #Copy Drone Data
             i = 0
             if job[3] != 'Scene':
-                print('Searching for GCP job: ' + job[0])
-                get_gcp(job)
-                print('Copying drone data for job: ' + job[0])
+                print('Fetching Drone Folder')
                 for file in glob.glob(job[1] + '/' + job[0] + '*' + '/*Drone*/*'):
                     ind = str(i)
                     name = file.lower()
                     if job[2].lower() in name:
                         shutil.copytree(file, new_job_folder + '\\' + job[0] + '_' + job[2] + drone_folder + '\\' + job[2] + '\\' + ind + job[2])
                         i += 1
+
+                print('Searching for GCP job: ' + job[0])
+                get_gcp(job)
+                print('Copying drone data for job: ' + job[0])
             #Copy Scan Data
             i = 0
             if job[3] != 'Pix4D':

@@ -1,5 +1,9 @@
-##### This program randomly finds jobs on the server and processes them in Scene #####
+#----------------------------------------------------------------
+#                    Run random Scene jobs
+#----------------------------------------------------------------
 
+
+##### Import Modules #####
 from Settings import *
 from scene_pics import *
 from ENTRY_FILE import *
@@ -11,9 +15,14 @@ from datetime import date as dt
 from time import sleep
 from datetime import date
 
-job_list = []
 
-for i in  range(0,10):
+##### Init Job list and choose number of jobs run #####
+job_list = []
+total_jobs = 10
+
+
+##### Run Random Jobs #####
+for i in  range(0,total_jobs):
     scans_exist = False
     job = random.choice(os.listdir(CLT))
     if job[0] == 'J':
@@ -24,6 +33,8 @@ for i in  range(0,10):
     job_match = re.search('(J\d*)', job)
     print(job)
     job_num =  job_match.group(1)
+
+    #### Check that random folder has scans ####
     for file in glob.glob(CLT + job + '/*'):
         if 'scan' in file.lower():
             scan_folder = file
