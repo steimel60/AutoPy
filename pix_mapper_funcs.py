@@ -1,3 +1,9 @@
+#----------------------------------------------------------------
+#       Define Step-by-Step Functions for Pix4D Mapper
+#----------------------------------------------------------------
+
+
+##### Import Modules #####
 from Settings import *
 from pix_mapper_pics import *
 import re

@@ -1,5 +1,13 @@
+#----------------------------------------------------------------
+#              Load Images used in Pix Functions
+#----------------------------------------------------------------
+
+
+##### Import Modules #####
 from PIL import Image
 
+
+##### Images #####
 pixDone = Image.open('img\\pix_done.png')
 pixDSMOrthoIndex = Image.open('img\\pix_DSM_ortho_index.png')
 pixMapperStart = Image.open('img\\pix_mapper_start.png')
