@@ -125,8 +125,8 @@ def run_scene(job):
         print('Creating point cloud')
         scene.create_point_cloud()
         #Export after Successful Processing
-        print('Exporting xyz and e57')
-        scene.export_xyz_e57(job)
+        #print('Exporting xyz and e57')
+        #scene.export_xyz_e57(job)
         print('Exporting project')
         scene.export_project(job)
         print('Scene process successful :)\n\n')
