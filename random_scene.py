@@ -58,8 +58,6 @@ for i in  range(0,total_jobs):
         print('No scan folder')
         i -= 1
 
-for job in job_list:
-    print(job)
-print('\n')
+    automate(job_list)
 
-automate(job_list)
+random_scene(5)

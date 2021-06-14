@@ -57,7 +57,4 @@ for i in  range(0,total_jobs):
     else:
         print('No drone folder')
 
-for job in job_list:
-    print(job)
-
-automate(job_list)
+    automate(job_list)

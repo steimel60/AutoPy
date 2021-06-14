@@ -208,6 +208,9 @@ def export_xyz_e57(job):
 
 #Exports project folder
 def export_project(job):
+    check_for_image(exportTab_png)
+    time.sleep(.3)
+    gui.click()
     check_for_image(exportProj_png)
     time.sleep(.3)
     gui.click()
