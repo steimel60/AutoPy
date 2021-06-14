@@ -103,7 +103,7 @@ def run_scene(job):
         scene.start()
         #Close license warning and pop up
         print('Closing pop ups')
-        #scene.close_pop_ups()
+        scene.close_pop_ups()
         #Open New Project
         print('Opening new project')
         scene.new_project(job)
@@ -158,14 +158,14 @@ def run_pix(job):
         #Start processing all 3 steps
         print('Starting processing')
         pix.start_processing(job)
-        #Copy project to processed folders
+        #Copy project to processed folders and close pix
         print('Copying files')
         if pix.copy_files(job) == True:
             running = False
+            print('Pix process successful :)\n\n')
+            window.terminate()
             break
-        #Once done processing close Pix4DMapper
-        print('Pix process successful :)\n\n')
-        window.terminate()
+
 
 ################## GET GCP #####################
 def get_gcp(job):

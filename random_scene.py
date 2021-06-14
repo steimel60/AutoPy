@@ -17,7 +17,12 @@ from datetime import date
 
 ##### Init Job list and choose number of jobs run #####
 job_list = []
+<<<<<<< HEAD
 total_jobs = 20
+=======
+total_jobs = 5
+
+>>>>>>> 80d89cb86dbf880fc1f38c02ff855068b6b6a53b
 
 ##### Run Random Jobs #####
 for i in  range(0,total_jobs):
