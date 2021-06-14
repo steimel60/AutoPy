@@ -15,11 +15,9 @@ from datetime import date as dt
 from time import sleep
 from datetime import date
 
-
 ##### Init Job list and choose number of jobs run #####
 job_list = []
-total_jobs = 10
-
+total_jobs = 20
 
 ##### Run Random Jobs #####
 for i in  range(0,total_jobs):
@@ -46,6 +44,7 @@ for i in  range(0,total_jobs):
             if file.endswith('.fls'):
                 sorted = True
                 asset_match = re.search('([a-zA-Z]*)_*\d*\.fls', file)
+
                 asset = asset_match.group(1)
                 if (asset not in asset_list) and (asset != ''):
                     asset_list.append(asset)
@@ -59,5 +58,3 @@ for i in  range(0,total_jobs):
         i -= 1
 
     automate(job_list)
-
-random_scene(5)
