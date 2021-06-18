@@ -2,12 +2,8 @@
 #            Load images used for Scene Automation
 #----------------------------------------------------------------
 
-
 ##### Import Modules #####
 from PIL import Image
-
-########## Test Image #####################
-test_img = Image.open('img\\test_img.png')
 
 ###### FILE EXPLORER IMAGES ###############
 file_explore_path_png = Image.open('img\\file_expl_path.png')
