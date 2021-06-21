@@ -30,8 +30,6 @@ today = date.today()
 date = today.strftime("%m-%d-%y")
 
 #Get directory for images
-imgDir = os.path.expanduser("~\\AutoPy\\img")
-
 #--------------------------------------------------------------------------------------------------------------
 #                                   Initialize Functions
 #--------------------------------------------------------------------------------------------------------------
@@ -51,6 +49,8 @@ def addJob():
     f.write(fileInfo)
     f.close()
 
+checkBox = []
+jobList = []
 #Loads list of jobs from text file
 def loadJobs():
     try:
@@ -60,11 +60,11 @@ def loadJobs():
         tab2Layout.addWidget(errorLabel)
         errorLabel.setHidden(False)
 
-    jobList = textFile.read().split()
-    for i in range(0,len(jobList)):
-        jobList[i] = jobList[i].split(',')
+    lines = textFile.read().split()
+    for i in range(0,len(lines)):
+        jobList.append(lines[i].split(','))
 
-    checkBox = []
+
     for job in jobList:
         checkBox.append(QCheckBox(job[0] + ' ' + job[2] + ' ' + job[3]))
 
@@ -73,55 +73,14 @@ def loadJobs():
 
     tab2.show()
 
-def findJobs():
-    today = date.today()
-    tdate = today.strftime("%m-%d-%y")
-    try:
-        text_file = open(text_path + '\\' + tdate + '.txt', 'r')
-    except:
-        for i in range(11):
-            if i%11 == 0:
-                popup = ctypes.windll.user32.MessageBoxW
-                threading.Thread(target = lambda :popup(None, '      No task file exists', 'Error', 0)).start()
-    list = text_file.read().split()
-
-    list_o_jobs = []
-    scene_jobs = []
-    pix4d_jobs = []
-
-    for job in list:
-        job2 = job.split(',')
-        list_o_jobs.append(job2)
-    for job in list_o_jobs:
-        job[0] = job[0].upper()
-    for job in list_o_jobs:
-        if job[1] == 'CLT':
-            job[1] = CLT
-        elif job[1] == 'DEN':
-            job[1] = DEN
-        elif job[1] == 'ATL':
-            job[1] = ATL
-        elif job[1] == 'NAS':
-            job[1] = NAS
-    for job in list_o_jobs:
-        job[2] = job[2].lower()
-    for job in list_o_jobs:
-        if job[3] == 'Scene':
-            scene_jobs.append(job)
-        if job[3] == 'Pix4D':
-            pix4d_jobs.append(job)
-        if job[3] == 'Both':
-            scene_jobs.append(job)
-            pix4d_jobs.append(job)
-
-    return list_o_jobs, scene_jobs, pix4d_jobs
-
 #Passes list of jobs that are checked by user
 def runJobs():
     fullRunList = []
-    for n in range(len(jobs)):
-        if (var[n].get() == 1):
-            fullRunList.append(jobs[n])
+    print(len(checkBox))
+    print(jobList)
+    for n in range(len(checkBox)):
+        if (checkBox[n].isChecked()):
+            fullRunList.append(jobList[n])
     automate(fullRunList)
 
 #--------------------------------------------------------------------------------------------------------------
@@ -131,7 +90,7 @@ app = QApplication(sys.argv)
 window = QWidget()
 windowLayout = QVBoxLayout()
 window.setWindowTitle('AutoPy')
-window.setWindowIcon(QIcon(imgDir + "/AutoPyThumbnail.png"))
+window.setWindowIcon(QIcon("img/AutoPyThumbnail.png"))
 window.setFixedWidth(400)
 qtRectangle = window.frameGeometry()
 centerPoint = QDesktopWidget().availableGeometry().center()
@@ -139,7 +98,7 @@ qtRectangle.moveCenter(centerPoint)
 window.move(qtRectangle.topLeft())
 window.move(1200, 600)
 banner = QLabel()
-pixmap = QPixmap(imgDir + "/AutoPyHeaderNoCherryGore.jpg")
+pixmap = QPixmap("img/AutoPyHeaderNoCherryGore.jpg")
 pixmap = pixmap.scaled(380, 700, Qt.KeepAspectRatio, Qt.FastTransformation)
 banner.setPixmap(pixmap)
 banner.resize(pixmap.width(), pixmap.height())
