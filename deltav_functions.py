@@ -16,10 +16,11 @@ import pyautogui as gui
 import os
 from datetime import date as dt
 import time
+from subprocess_maximize import Popen
 from time import sleep
 from zipfile import ZipFile
 import pandas as pd
-import subprocess
+#import subprocess
 
 ############## READ JOBS FROM SERVER TXT FILE #################
 def find_jobs():
@@ -99,8 +100,9 @@ def run_scene(job):
     while running:
         #open FARO
         print('Starting job: ' + job[0])
-        window = subprocess.Popen(scene_path)
-        scene.start()
+        window = Popen(scene_path, show='maximize')
+        time.sleep(30)
+        #scene.start()
         #Close license warning and pop up
         print('Closing pop ups')
         scene.close_pop_ups()
@@ -139,8 +141,8 @@ def run_pix(job):
     while running:
         #Open Pix4DMapper
         print('Opening Pix4D')
-        window = subprocess.Popen(pix_mapper_path)
-        pix.start()
+        window = Popen(pix_mapper_path, show='maximize')
+        #pix.start()
         #Create new project
         print('Creating new project')
         pix.new_project(job)

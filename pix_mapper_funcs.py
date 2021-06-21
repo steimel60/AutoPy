@@ -35,10 +35,10 @@ def start():
 
 #Create new project
 def new_project(job):
-    check_for_image(pixBeforeNew)
-    time.sleep(.3)
-    gui.click()
-    time.sleep(.3)
+    #check_for_image(pixBeforeNew)
+    #time.sleep(.3)
+    #gui.click()
+    time.sleep(30)
     gui.hotkey('ctrl','n')
     time.sleep(.3)
     gui.write(job[0] + '_' + job[2])
