@@ -30,7 +30,7 @@ today = date.today()
 date = today.strftime("%m-%d-%y")
 
 #Get directory for images
-imgDir = os.path.expanduser("C:\\Users\\LandonLeigh\\Documents\\GitHub\\AutoPy\\img")
+imgDir = os.path.expanduser("~\\AutoPy\\img")
 
 #--------------------------------------------------------------------------------------------------------------
 #                                   Initialize Functions
