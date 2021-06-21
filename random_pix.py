@@ -15,11 +15,9 @@ from datetime import date as dt
 from time import sleep
 from datetime import date
 
-
 ##### Init Job list and set total job number #####
 job_list = []
 total_jobs = 10
-
 
 ##### Run random jobs #####
 for i in  range(0,total_jobs):
