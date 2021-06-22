@@ -231,9 +231,9 @@ def export_project(job):
     time.sleep(.3)
     gui.press('enter')
     #close save success
-    check_for_image(lastOk_png)
-    time.sleep(.3)
-    gui.click()
+    #check_for_image(lastOk_png)
+    #time.sleep(.3)
+    #gui.click()
 
 ##### USED IN OTHER FUNCS#####
 

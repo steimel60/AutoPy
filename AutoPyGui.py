@@ -18,6 +18,13 @@ locationOptions = [
     'CLT'
 ]
 
+locationConversion = [
+    ATL,
+    DEN,
+    NAS,
+    CLT
+]
+
 #Array of options for program dropdown
 programOptions = [
     'Scene',
@@ -49,6 +56,9 @@ def addJob():
     f.write(fileInfo)
     f.close()
 
+    jobNumberBox.setText('')
+    assetBox.setText('')
+
 checkBox = []
 jobList = []
 #Loads list of jobs from text file
@@ -75,6 +85,18 @@ def loadJobs():
 
 #Passes list of jobs that are checked by user
 def runJobs():
+    for job in jobList:
+        job[0] = job[0].upper()
+        job[2] = job[2].lower()
+        if job[1] == 'CLT':
+            job[1] = CLT
+        elif job[1] == 'DEN':
+            job[1] = DEN
+        elif job[1] == 'ATL':
+            job[1] = ATL
+        elif job[1] == 'NAS':
+            job[1] = NAS
+
     fullRunList = []
     print(len(checkBox))
     print(jobList)
