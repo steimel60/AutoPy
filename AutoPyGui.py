@@ -74,9 +74,12 @@ def loadJobs():
     for i in range(0,len(lines)):
         jobList.append(lines[i].split(','))
 
+    checkBox = []
+    for i in range(0,len(jobList)):
+        checkBox.append('')
 
-    for job in jobList:
-        checkBox.append(QCheckBox(job[0] + ' ' + job[2] + ' ' + job[3]))
+    for i in range(0,len(jobList)):
+        checkBox[i]=QCheckBox(jobList[i][0] + ' ' + jobList[i][2] + ' ' + jobList[i][3])
 
     for box in checkBox:
         tab2Layout.addWidget(box)
