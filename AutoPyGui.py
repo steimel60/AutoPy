@@ -42,22 +42,26 @@ date = today.strftime("%m-%d-%y")
 #--------------------------------------------------------------------------------------------------------------
 #Gets values from GUI and adds them to text file
 def addJob():
-    jobInput = jobNumberBox.text()
-    locationInput = locationOptions[locations.currentIndex()]
-    assetInput = assetBox.text()
-    programInput = programOptions[program.currentIndex()]
-    if jobInput == '' or assetInput == '':
-        return
-    fileInfo = jobInput + ',' + locationInput + ',' + assetInput + ',' + programInput + ' '
-    savePath = text_path
-    fileName = date + '.txt'
-    completeName = os.path.join(savePath, fileName)
-    f = open(completeName, 'a+')
-    f.write(fileInfo)
-    f.close()
+    if confirmationBox.isChecked():
+        jobInput = jobNumberBox.text()
+        locationInput = locationOptions[locations.currentIndex()]
+        assetInput = assetBox.text()
+        programInput = programOptions[program.currentIndex()]
+        if jobInput == '' or assetInput == '':
+            return
+        fileInfo = jobInput + ',' + locationInput + ',' + assetInput + ',' + programInput + ' '
+        savePath = text_path
+        fileName = date + '.txt'
+        completeName = os.path.join(savePath, fileName)
+        f = open(completeName, 'a+')
+        f.write(fileInfo)
+        f.close()
 
-    jobNumberBox.setText('')
-    assetBox.setText('')
+        jobNumberBox.setText('')
+        assetBox.setText('')
+        confirmationBox.setChecked(False)
+    else:
+        pass
 
 checkBox = []
 jobList = []
@@ -88,21 +92,7 @@ def loadJobs():
 
 #Passes list of jobs that are checked by user
 def runJobs():
-    for job in jobList:
-        job[0] = job[0].upper()
-        job[2] = job[2].lower()
-        if job[1] == 'CLT':
-            job[1] = CLT
-        elif job[1] == 'DEN':
-            job[1] = DEN
-        elif job[1] == 'ATL':
-            job[1] = ATL
-        elif job[1] == 'NAS':
-            job[1] = NAS
-
     fullRunList = []
-    print(len(checkBox))
-    print(jobList)
     for n in range(len(checkBox)):
         if (checkBox[n].isChecked()):
             fullRunList.append(jobList[n])
@@ -172,6 +162,9 @@ runJobsButton = QPushButton('Run Jobs')
 
 errorLabel = QLabel('ERROR: No job list exists')
 
+#Confirmation Box
+confirmationBox = QCheckBox('Check to confirm the information entered is correct')
+
 #--------------------------------------------------------------------------------------------------------------
 #                                   Make Layout
 #--------------------------------------------------------------------------------------------------------------
@@ -189,6 +182,7 @@ tab1Layout.addWidget(blankLabel)
 tab1Layout.addWidget(programLabel)
 tab1Layout.addWidget(program)
 tab1Layout.addWidget(blankLabel)
+tab1Layout.addWidget(confirmationBox)
 tab1Layout.addWidget(blankLabel)
 tab1Layout.addWidget(addJobButton)
 tab1.setLayout(tab1Layout)

@@ -23,42 +23,47 @@ import pandas as pd
 #import subprocess
 
 ############## READ JOBS FROM SERVER TXT FILE #################
-def find_jobs():
+def updateList(currentJobList):
     today = dt.today()
     date = today.strftime("%m-%d-%y")
-    text_file = open(text_path + date + '.txt', 'r')
-    list = text_file.read().split()
+    text_file = open(text_path + '/' + date + '.txt', 'r')
+    print(text_path + '/' + date + '.txt')
+    jobList = text_file.read().split()
+    print(jobList)
+    text_file.close()
 
-    list_o_jobs = []
-    scene_jobs = []
-    pix4d_jobs = []
+    for i in range(0,len(jobList)):
+        jobList[i] = jobList[i].split(',')
 
-    for job in list:
-        job2 = job.split(',')
-        list_o_jobs.append(job2)
-    for job in list_o_jobs:
+    print(jobList)
+    for job in currentJobList:
         job[0] = job[0].upper()
-    for job in list_o_jobs:
-        if job[1] == 'CLT':
-            job[1] = CLT
-        elif job[1] == 'DEN':
-            job[1] = DEN
-        elif job[1] == 'ATL':
-            job[1] = ATL
-        elif job[1] == 'NAS':
-            job[1] = NAS
-    for job in list_o_jobs:
         job[2] = job[2].lower()
-    for job in list_o_jobs:
-        if job[3] == 'Scene':
-            scene_jobs.append(job)
-        if job[3] == 'Pix4D':
-            pix4d_jobs.append(job)
-        if job[3] == 'Both':
-            scene_jobs.append(job)
-            pix4d_jobs.append(job)
+        if job[1] == CLT:
+            job[1] = 'CLT'
+        elif job[1] == DEN:
+            job[1] = 'DEN'
+        elif job[1] == ATL:
+            job[1] = 'ATL'
+        elif job[1] == NAS:
+            job[1] = 'NAS'
 
-    return list_o_jobs, scene_jobs, pix4d_jobs
+    for job in jobList:
+        job[0] = job[0].upper()
+        job[2] = job[2].lower()
+
+    jobList = [job for job in jobList if job not in currentJobList]
+
+    text_file = open(text_path + '/' + date + '.txt', 'w+')
+    print(jobList)
+    for job in jobList:
+        line = job[0] +','+job[1]+','+job[2]+','+job[3]
+        text_file.write(line + ' ')
+
+    text_file.close()
+
+    return jobList
+
 
 ########### COPY JOB DATA FROM SERVER TO LOCAL FOLDER ###############
 def create_local_files(job_list):
@@ -105,7 +110,7 @@ def run_scene(job):
         #scene.start()
         #Close license warning and pop up
         print('Closing pop ups')
-        ############################################################scene.close_pop_ups()
+        scene.close_pop_ups()
         #Open New Project
         print('Opening new project')
         scene.new_project(job)

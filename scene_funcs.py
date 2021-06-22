@@ -214,11 +214,11 @@ def export_project(job):
     check_for_image(exportProj_png)
     time.sleep(.3)
     gui.click()
-    time.sleep(1)
+    #time.sleep(2)
     #save before export
-    gui.press('enter')
-    time.sleep(1)
-    gui.press('enter')
+    #gui.press('enter')
+    #time.sleep(2)
+    #gui.press('enter')
     time.sleep(2)
     for i in range (0,3):
         gui.press('tab')
