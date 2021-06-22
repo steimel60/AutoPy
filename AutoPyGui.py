@@ -4,7 +4,6 @@ from PySide2.QtGui import *
 from PySide2.QtWidgets import *
 from shiboken2 import wrapInstance
 from Settings import *
-from ENTRY_FILE import *
 from datetime import date
 
 #--------------------------------------------------------------------------------------------------------------
@@ -90,13 +89,6 @@ def loadJobs():
 
     tab2.show()
 
-#Passes list of jobs that are checked by user
-def runJobs():
-    fullRunList = []
-    for n in range(len(checkBox)):
-        if (checkBox[n].isChecked()):
-            fullRunList.append(jobList[n])
-    automate(fullRunList)
 
 #--------------------------------------------------------------------------------------------------------------
 #                                   Create GUI Window
@@ -198,7 +190,6 @@ window.setLayout(windowLayout)
 #--------------------------------------------------------------------------------------------------------------
 addJobButton.clicked.connect(addJob)
 loadJobsButton.clicked.connect(loadJobs)
-runJobsButton.clicked.connect(runJobs)
 
 #--------------------------------------------------------------------------------------------------------------
 #                                   Show GUI Window
