@@ -37,3 +37,24 @@ def automate(job_list):
     job_list = updateList(job_list)
     if len(job_list) != 0:
         automate(job_list)
+
+
+
+running = True
+while running:
+    try:
+        today = dt.today()
+        date = today.strftime("%m-%d-%y")
+        text_file = open(text_path + '/' + date + '.txt', 'r')
+        #print(text_path + '/' + date + '.txt')
+        jobList = text_file.read().split()
+        #print(jobList)
+        text_file.close()
+
+        if len(jobList) > 0:
+            for i in range(0,len(jobList)):
+                jobList[i] = jobList[i].split(',')
+
+            automate(jobList)
+    except:
+        pass

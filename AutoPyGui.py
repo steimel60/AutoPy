@@ -42,22 +42,26 @@ date = today.strftime("%m-%d-%y")
 #--------------------------------------------------------------------------------------------------------------
 #Gets values from GUI and adds them to text file
 def addJob():
-    jobInput = jobNumberBox.text()
-    locationInput = locationOptions[locations.currentIndex()]
-    assetInput = assetBox.text()
-    programInput = programOptions[program.currentIndex()]
-    if jobInput == '' or assetInput == '':
-        return
-    fileInfo = jobInput + ',' + locationInput + ',' + assetInput + ',' + programInput + ' '
-    savePath = text_path
-    fileName = date + '.txt'
-    completeName = os.path.join(savePath, fileName)
-    f = open(completeName, 'a+')
-    f.write(fileInfo)
-    f.close()
+    if confirmationBox.isChecked():
+        jobInput = jobNumberBox.text()
+        locationInput = locationOptions[locations.currentIndex()]
+        assetInput = assetBox.text()
+        programInput = programOptions[program.currentIndex()]
+        if jobInput == '' or assetInput == '':
+            return
+        fileInfo = jobInput + ',' + locationInput + ',' + assetInput + ',' + programInput + ' '
+        savePath = text_path
+        fileName = date + '.txt'
+        completeName = os.path.join(savePath, fileName)
+        f = open(completeName, 'a+')
+        f.write(fileInfo)
+        f.close()
 
-    jobNumberBox.setText('')
-    assetBox.setText('')
+        jobNumberBox.setText('')
+        assetBox.setText('')
+        confirmationBox.setChecked(False)
+    else:
+        pass
 
 checkBox = []
 jobList = []
@@ -155,6 +159,9 @@ runJobsButton = QPushButton('Run Jobs')
 
 errorLabel = QLabel('ERROR: No job list exists')
 
+#Confirmation Box
+confirmationBox = QCheckBox('Check to confirm the information entered is correct')
+
 #--------------------------------------------------------------------------------------------------------------
 #                                   Make Layout
 #--------------------------------------------------------------------------------------------------------------
@@ -172,6 +179,7 @@ tab1Layout.addWidget(blankLabel)
 tab1Layout.addWidget(programLabel)
 tab1Layout.addWidget(program)
 tab1Layout.addWidget(blankLabel)
+tab1Layout.addWidget(confirmationBox)
 tab1Layout.addWidget(blankLabel)
 tab1Layout.addWidget(addJobButton)
 tab1.setLayout(tab1Layout)
