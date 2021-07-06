@@ -62,34 +62,6 @@ def addJob():
     else:
         pass
 
-checkBox = []
-jobList = []
-#Loads list of jobs from text file
-def loadJobs():
-    try:
-        textFile = open(text_path + '\\' + date + '.txt', 'r')
-        errorLabel.setHidden(True)
-    except:
-        tab2Layout.addWidget(errorLabel)
-        errorLabel.setHidden(False)
-
-    lines = textFile.read().split()
-    for i in range(0,len(lines)):
-        jobList.append(lines[i].split(','))
-
-    checkBox = []
-    for i in range(0,len(jobList)):
-        checkBox.append('')
-
-    for i in range(0,len(jobList)):
-        checkBox[i]=QCheckBox(jobList[i][0] + ' ' + jobList[i][2] + ' ' + jobList[i][3])
-
-    for box in checkBox:
-        tab2Layout.addWidget(box)
-
-    tab2.show()
-
-
 #--------------------------------------------------------------------------------------------------------------
 #                                   Create GUI Window
 #--------------------------------------------------------------------------------------------------------------
@@ -117,9 +89,7 @@ blankLabel = QLabel()
 #Tab Widgets
 tabWidget = QTabWidget()
 tab1 = QWidget()
-tab2 = QWidget()
 tabWidget.addTab(tab1, 'Task Creator')
-tabWidget.addTab(tab2, 'Script Runner')
 
 #Job Number Widgets
 jobNumberLabel = QLabel()
@@ -161,7 +131,6 @@ confirmationBox = QCheckBox('Check to confirm the information entered is correct
 #                                   Make Layout
 #--------------------------------------------------------------------------------------------------------------
 tab1Layout = QVBoxLayout()
-tab2Layout = QVBoxLayout()
 tab1Layout.addWidget(jobNumberLabel)
 tab1Layout.addWidget(jobNumberBox)
 tab1Layout.addWidget(blankLabel)
@@ -178,9 +147,6 @@ tab1Layout.addWidget(confirmationBox)
 tab1Layout.addWidget(blankLabel)
 tab1Layout.addWidget(addJobButton)
 tab1.setLayout(tab1Layout)
-tab2Layout.addWidget(loadJobsButton)
-tab2Layout.addWidget(runJobsButton)
-tab2.setLayout(tab2Layout)
 windowLayout.addWidget(banner)
 windowLayout.addWidget(tabWidget)
 window.setLayout(windowLayout)
@@ -189,7 +155,6 @@ window.setLayout(windowLayout)
 #                                   Make Connections
 #--------------------------------------------------------------------------------------------------------------
 addJobButton.clicked.connect(addJob)
-loadJobsButton.clicked.connect(loadJobs)
 
 #--------------------------------------------------------------------------------------------------------------
 #                                   Show GUI Window
