@@ -228,7 +228,7 @@ def export_project(job):
     time.sleep(1)
     gui.press('enter')
     check_for_image(exportSuccess_png)
-    time.sleep(.3)
+    time.sleep(.3) 
     gui.press('enter')
     #close save success
     #check_for_image(lastOk_png)
