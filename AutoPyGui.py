@@ -42,9 +42,9 @@ date = today.strftime("%m-%d-%y")
 #Gets values from GUI and adds them to text file
 def addJob():
     if confirmationBox.isChecked():
-        jobInput = jobNumberBox.text()
+        jobInput = jobNumberBox.text().strip()
         locationInput = locationOptions[locations.currentIndex()]
-        assetInput = assetBox.text()
+        assetInput = assetBox.text().strip()
         programInput = programOptions[program.currentIndex()]
         if jobInput == '' or assetInput == '':
             return

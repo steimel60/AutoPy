@@ -110,7 +110,7 @@ def run_scene(job):
         #scene.start()
         #Close license warning and pop up
         print('Closing pop ups')
-        #scene.close_pop_ups()
+        scene.close_pop_ups()
         #Open New Project
         print('Opening new project')
         scene.new_project(job)
