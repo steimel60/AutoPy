@@ -1,15 +1,13 @@
-import random
-##### TEST CODE #####
-num1 = str(random.randint(1000,9999))
-num2 = str(random.randint(1000,9999))
-num3 = str(random.randint(1000,9999))
-num4 = str(random.randint(1000,9999))
+import pandas as pd
 
-csv = str(random.randint(100,999))
+location = r'Z:\J8288 McLamb & Sons Construction\GPS\GCP.csv'
 
-month = str(random.randint(0,12))
-year = str(random.randint(22,27))
+df = pd.read_csv(location)
+columns = df.columns
 
-
-print(num1 + ' ' + num2 + ' ' + num3 + ' ' + num4)
-print('csv: ' + csv)
+for column in columns:
+    if 'latitude' in column.lower():
+        lat = df[column]
+        print(lat)
+#df2 = df[['OBJECTID', 'Latitude', 'Longitude', 'Altitude']].copy().dropna()
+print(df.columns)

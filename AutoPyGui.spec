@@ -4,7 +4,7 @@
 block_cipher = None
 
 
-a = Analysis(['AutoPyGui.py'],
+a = Analysis(['AutoPyGui.pyw'],
              pathex=['C:\\Users\\LandonLeigh\\Documents\\GitHub\\AutoPy'],
              binaries=[],
              datas=[],
@@ -31,4 +31,4 @@ exe = EXE(pyz,
           upx=True,
           upx_exclude=[],
           runtime_tmpdir=None,
-          console=True )
+          console=False )
