@@ -1,14 +1,16 @@
 #----------------------------------------------------------------
-#               Script for GUI for Task Creation
+#                         !!!OUTDATED!!!
 #----------------------------------------------------------------
 
+#----------------------------------------------------------------
+#               Script for GUI for Task Creation
+#----------------------------------------------------------------
 
 ##### Import Modules #####
 import tkinter as tk
 from tkinter import *
 from datetime import date
-import ctypes, threading, sys, re, os
-import ENTRY_FILE
+import ctypes, threading, sys, re, os, ENTRY_FILE
 from Settings import *
 
 #create GUI
@@ -28,19 +30,10 @@ today = date.today()
 date = today.strftime("%m-%d-%y")
 
 #Array of options for location dropdown
-locationOptions = [
-    'ATL',
-    'DEN',
-    'NAS',
-    'CLT'
-]
+locationOptions = ['ATL', 'DEN', 'NAS', 'CLT']
 
 #Array of options for program dropdown
-programOptions = [
-    'Scene',
-    'Pix4D',
-    'Both'
-]
+programOptions = ['Scene', 'Pix4D', 'Both']
 
 #Function to add jobs to text file
 def addFile():

@@ -1,7 +1,10 @@
 #----------------------------------------------------------------
-#                Script for GUI to run Automation
+#                         !!!OUTDATED!!!
 #----------------------------------------------------------------
 
+#----------------------------------------------------------------
+#                Script for GUI to run Automation
+#----------------------------------------------------------------
 
 ##### Import Modules #####
 import tkinter as tk
@@ -25,6 +28,7 @@ def find_jobs():
                 threading.Thread(target = lambda :popup(None, '      No task file exists', 'Error', 0)).start()
     list = text_file.read().split()
 
+    #Create lists for jobs
     list_o_jobs = []
     scene_jobs = []
     pix4d_jobs = []
@@ -107,7 +111,7 @@ class ScrollableFrame(tk.Frame):
     def __init__(self, master, **kwargs):
         tk.Frame.__init__(self, master, **kwargs)
 
-        # create a canvas object and a vertical scrollbar for scrolling it
+        #Create a canvas object and a vertical scrollbar for scrolling it
         self.vscrollbar = tk.Scrollbar(self, orient=tk.VERTICAL)
         self.vscrollbar.pack(side='right', fill="y",  expand="false")
         self.canvas = tk.Canvas(self,bg='#292d34', bd=0, height=350, highlightthickness=0, yscrollcommand=self.vscrollbar.set)
@@ -116,21 +120,22 @@ class ScrollableFrame(tk.Frame):
         self.canvas.bind_all("<MouseWheel>", self._on_mousewheel)
         self.vscrollbar.config(command=self.canvas.yview)
 
-        # reset the view
+        #Reset the view
         self.canvas.xview_moveto(0)
         self.canvas.yview_moveto(0)
 
-        # create a frame inside the canvas which will be scrolled with it
+        #Create a frame inside the canvas which will be scrolled with it
         self.interior = tk.Frame(self.canvas, **kwargs)
         self.canvas.create_window(0, 0, window=self.interior, anchor="nw")
 
         self.bind('<Configure>', self.set_scrollregion)
 
+    #Allow mouse wheel to scroll in region
     def _on_mousewheel(self, event):
         self.canvas.yview_scroll(int(-1*(event.delta/120)), "units")
 
+    #Set the scroll region on the canvas
     def set_scrollregion(self, event=None):
-        #Set the scroll region on the canvas
         self.canvas.configure(scrollregion=self.canvas.bbox('all'))
 
 checkbox_pane = ScrollableFrame(gui, bg='#292d34')

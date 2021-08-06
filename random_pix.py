@@ -2,7 +2,6 @@
 #                   Run random jobs in Pix4D
 #----------------------------------------------------------------
 
-
 ##### Import Modules #####
 from Settings import *
 from scene_pics import *

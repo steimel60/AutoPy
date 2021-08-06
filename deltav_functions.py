@@ -6,24 +6,22 @@
 #     See scene_funcs and pix_funcs for step by step functions
 #----------------------------------------------------------------
 
-
 ################ Import Modules ######################
 from Settings import *
 from scene_pics import *
 import scene_funcs as scene
 import pix_mapper_funcs as pix
 import pyautogui as gui
-import os
+import os, time
 from datetime import date as dt
-import time
 from subprocess_maximize import Popen
 from time import sleep
 from zipfile import ZipFile
 import pandas as pd
-#import subprocess
 
 ############## READ JOBS FROM SERVER TXT FILE #################
 def updateList(currentJobList):
+    #Open text file and store information
     today = dt.today()
     date = today.strftime("%m-%d-%y")
     text_file = open(text_path + '/' + date + '.txt', 'r')
@@ -32,9 +30,11 @@ def updateList(currentJobList):
     print(jobList)
     text_file.close()
 
+    #Split list with commas
     for i in range(0,len(jobList)):
         jobList[i] = jobList[i].split(',')
 
+    #Convert locations for searching
     print(jobList)
     for job in currentJobList:
         job[0] = job[0].upper()
@@ -48,12 +48,15 @@ def updateList(currentJobList):
         elif job[1] == NAS:
             job[1] = 'NAS'
 
+    #Standardize capitalization
     for job in jobList:
         job[0] = job[0].upper()
         job[2] = job[2].lower()
 
+    #Add jobs in list if not in current list
     jobList = [job for job in jobList if job not in currentJobList]
 
+    #Open file and write jobs to it
     text_file = open(text_path + '/' + date + '.txt', 'w+')
     print(jobList)
     for job in jobList:
@@ -85,6 +88,7 @@ def create_local_files(job_list):
                 print('Searching for GCP job: ' + job[0])
                 get_gcp(job)
                 print('Copying drone data for job: ' + job[0])
+
             #Copy Scan Data
             i = 0
             if job[3] != 'Pix4D':
@@ -107,7 +111,6 @@ def run_scene(job):
         print('Starting job: ' + job[0])
         window = Popen(scene_path, show='maximize')
         time.sleep(30)
-        #scene.start()
         #Close license warning and pop up
         print('Closing pop ups')
         scene.close_pop_ups()
@@ -132,8 +135,6 @@ def run_scene(job):
         print('Creating point cloud')
         scene.create_point_cloud()
         #Export after Successful Processing
-        #print('Exporting xyz and e57')
-        #scene.export_xyz_e57(job)
         print('Exporting project')
         scene.export_project(job)
         print('Scene process successful :)\n\n')
@@ -147,7 +148,6 @@ def run_pix(job):
         #Open Pix4DMapper
         print('Opening Pix4D')
         window = Popen(pix_mapper_path, show='maximize')
-        #pix.start()
         #Create new project
         print('Creating new project')
         pix.new_project(job)
@@ -173,7 +173,6 @@ def run_pix(job):
             window.terminate()
             break
 
-
 ################## GET GCP #####################
 def get_gcp(job):
     if job[2] == 'site':
@@ -183,21 +182,21 @@ def get_gcp(job):
             if 'zip' in name:
                 print('Found zip')
                 shutil.copy(file, new_job_folder + '\\' + job[0] + '_' + job[2] + drone_folder)
-        # Create a ZipFile Object and load sample.zip in it
+                #Create a ZipFile Object and load sample.zip in it
                 with ZipFile(file, 'r') as zipObj:
-                   # Get a list of all archived file names from the zip
+                   #Get a list of all archived file names from the zip
                    listOfFileNames = zipObj.namelist()
-                   # Iterate over the file names
+                   #Iterate over the file names
                    print('Searching for csv')
                    for fileName in listOfFileNames:
-                       # Check filename endswith csv
+                       #Check filename endswith csv
                        if fileName.endswith('.csv'):
                            print('Found csv')
                            print('Extracting stuff')
-                           # Extract a single file from zip
+                           #Extract a single file from zip
                            zipObj.extract(fileName, new_job_folder + '\\' + job[0] + '_' + job[2] + drone_folder)
                            df = pd.read_csv(new_job_folder + '\\' + job[0] + '_' + job[2] + drone_folder + '\\'+ fileName)
-                           #create upload file
+                           #Create upload file
                            df2 = df[['OBJECTID', 'Latitude', 'Longitude', 'Altitude']].copy().dropna()
                            print('Creating new csv')
                            df2.to_csv(new_job_folder + '\\' + job[0] + '_' + job[2] + drone_folder + '\\' + 'GCP_edit.csv', header = None, index = False)

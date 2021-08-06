@@ -1,6 +1,5 @@
 import os
 
-
 path = 'Z:/'
 for file in os.listdir(path):
     if os.path.isdir(f'{path}/{file}'):

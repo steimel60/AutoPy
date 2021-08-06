@@ -2,7 +2,6 @@
 #            Open Gui for starting Automation tasks
 #----------------------------------------------------------------
 
-
 ##### Import Modules #####
 from ScriptGui import *
 

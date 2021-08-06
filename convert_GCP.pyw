@@ -1,9 +1,11 @@
+#Imports needed libraries
 import fileinput, os, sys, subprocess
 from PySide2.QtCore import *
 from PySide2.QtGui import *
 from PySide2.QtWidgets import *
 import pandas as pd
 
+#Creates GUI
 app = QApplication(sys.argv)
 window = QWidget()
 window.setWindowTitle('GCP Converter')
@@ -15,17 +17,21 @@ qtRectangle.moveCenter(centerPoint)
 window.move(qtRectangle.topLeft())
 window.move(1200, 600)
 
+#Variable to hold path to desktop
 desktopDir = os.environ['USERPROFILE'] + '\\Desktop'
 
+#Function that retrieves the path to GCP file
 def getLocation():
     return GCPZipBox.text()
 
+#Opens file explorer and sets text box to path selected
 def openExplorer():
     fileLocation = QFileDialog.getOpenFileName(None, '', desktopDir)[0]
     if fileLocation == "":  # If they cancel the dialog
         return  # Then just don't open anything
     GCPZipBox.setText(fileLocation)
 
+#Pulls only the needed lines out of the GCP file and creates a new one
 def convertGCP():
     location = getLocation()
     df = pd.read_csv(location)

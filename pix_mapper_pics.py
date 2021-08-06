@@ -2,10 +2,8 @@
 #              Load Images used in Pix Functions
 #----------------------------------------------------------------
 
-
 ##### Import Modules #####
 from PIL import Image
-
 
 ##### Images #####
 pixDone = Image.open('img\\pix_done.png')

@@ -2,18 +2,13 @@
 #         Step-by-Step functions for Scene Automation
 #----------------------------------------------------------------
 
-
 ##### Import Modules #####
 from Settings import *
 from scene_pics import *
-import re
-import glob
-import os
+import re, glob, os, time, subprocess
 import pyautogui as gui
-import time
 from time import sleep
 from datetime import date
-import subprocess
 
 screen_center = (gui.size()[0] / 2, (gui.size()[1] / 2) - 50)
 
@@ -104,7 +99,7 @@ def load_scans(job):
                 gui.press('tab')
                 time.sleep(.3)
             gui.hotkey('ctrl', 'a')
-            #drag selected folders to side panel
+            #Drag selected folders to side panel
             check_for_image(selected_png)
             time.sleep(.3)
             gui.mouseDown()
@@ -214,11 +209,6 @@ def export_project(job):
     check_for_image(exportProj_png)
     time.sleep(.3)
     gui.click()
-    #time.sleep(2)
-    #save before export
-    #gui.press('enter')
-    #time.sleep(2)
-    #gui.press('enter')
     time.sleep(2)
     for i in range (0,3):
         gui.press('tab')
@@ -228,15 +218,12 @@ def export_project(job):
     time.sleep(1)
     gui.press('enter')
     check_for_image(exportSuccess_png)
-    time.sleep(.3) 
+    time.sleep(.3)
     gui.press('enter')
-    #close save success
-    #check_for_image(lastOk_png)
-    #time.sleep(.3)
-    #gui.click()
 
-##### USED IN OTHER FUNCS#####
-
+#----------------------------------------------------------------
+#                    Used in other functions
+#----------------------------------------------------------------
 #Checks for image and moves cursor to location
 def check_for_image(image):
     checking = True
@@ -297,7 +284,7 @@ def reprocess(job):
     gui.click()
     time.sleep(.3)
     gui.hotkey('ctrl', 'a')
-    #drag selected folders to side panel
+    #Drag selected folders to side panel
     check_for_image(selected_png)
     time.sleep(.3)
     gui.mouseDown()

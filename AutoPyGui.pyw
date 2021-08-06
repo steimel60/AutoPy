@@ -1,3 +1,4 @@
+#Imports all needed libraries
 import fileinput, os, sys, glob, re, ctypes, threading
 from PySide2.QtCore import *
 from PySide2.QtGui import *
@@ -10,61 +11,56 @@ from datetime import date
 #                                   Initialize Variables/Lists
 #--------------------------------------------------------------------------------------------------------------
 #Array of options for location dropdown
-locationOptions = [
-    'ATL',
-    'DEN',
-    'NAS',
-    'CLT'
-]
+locationOptions = ['ATL', 'DEN', 'NAS', 'CLT']
 
-locationConversion = [
-    ATL,
-    DEN,
-    NAS,
-    CLT
-]
+#Array of locations to pass
+locationConversion = [ATL, DEN, NAS, CLT]
 
 #Array of options for program dropdown
-programOptions = [
-    'Scene',
-    'Pix4D',
-    'Both'
-]
+programOptions = ['Scene', 'Pix4D', 'Both']
 
 #Get todays date
 today = date.today()
 date = today.strftime("%m-%d-%y")
 
-#Get directory for images
 #--------------------------------------------------------------------------------------------------------------
 #                                   Initialize Functions
 #--------------------------------------------------------------------------------------------------------------
 #Gets values from GUI and adds them to text file
 def addJob():
+    #Check if confirmation box is checked before writing to file
     if confirmationBox.isChecked():
+        #Get values from text boxes and dropdowns
         jobInput = jobNumberBox.text().strip()
         locationInput = locationOptions[locations.currentIndex()]
         assetInput = assetBox.text().strip()
         programInput = programOptions[program.currentIndex()]
+
         if jobInput == '' or assetInput == '':
             return
         fileInfo = jobInput + ',' + locationInput + ',' + assetInput + ',' + programInput + ' '
         savePath = text_path
         fileName = date + '.txt'
         completeName = os.path.join(savePath, fileName)
+
+        #Open text file and write inputted information into it
         f = open(completeName, 'a+')
         f.write(fileInfo)
         f.close()
 
+        #Reset text boxes to be blank
         jobNumberBox.setText('')
         assetBox.setText('')
         confirmationBox.setChecked(False)
+
+    #If confirmation box is not checked then it does nothing
     else:
         pass
 
 #--------------------------------------------------------------------------------------------------------------
 #                                   Create GUI Window
 #--------------------------------------------------------------------------------------------------------------
+#Creates GUI, adds image, sets size, and moves it to center
 app = QApplication(sys.argv)
 window = QWidget()
 windowLayout = QVBoxLayout()
@@ -101,6 +97,7 @@ jobNumberBox.setPlaceholderText('Ex: J1234')
 locationLabel = QLabel()
 locationLabel.setText('Region')
 locations = QComboBox()
+#Create dropdown list for region options
 for item in locationOptions:
     locations.addItem(item)
 
@@ -114,6 +111,7 @@ assetBox.setPlaceholderText('Ex: Site / Volvo / Lambo')
 programLabel = QLabel()
 programLabel.setText('Program')
 program = QComboBox()
+#Create dropdown list for program options
 for item in programOptions:
     program.addItem(item)
 
@@ -122,6 +120,7 @@ addJobButton = QPushButton('Add Job')
 loadJobsButton = QPushButton('Load Jobs')
 runJobsButton = QPushButton('Run Jobs')
 
+#Error if no list exists
 errorLabel = QLabel('ERROR: No job list exists')
 
 #Confirmation Box
@@ -130,6 +129,7 @@ confirmationBox = QCheckBox('Check to confirm the information entered is correct
 #--------------------------------------------------------------------------------------------------------------
 #                                   Make Layout
 #--------------------------------------------------------------------------------------------------------------
+#Create vertical box layout and add everything to the layout
 tab1Layout = QVBoxLayout()
 tab1Layout.addWidget(jobNumberLabel)
 tab1Layout.addWidget(jobNumberBox)
@@ -154,6 +154,7 @@ window.setLayout(windowLayout)
 #--------------------------------------------------------------------------------------------------------------
 #                                   Make Connections
 #--------------------------------------------------------------------------------------------------------------
+#Carries out function when button is clicked
 addJobButton.clicked.connect(addJob)
 
 #--------------------------------------------------------------------------------------------------------------

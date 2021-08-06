@@ -1,3 +1,4 @@
+#Import other python files
 from Settings import *
 from deltav_functions import *
 
@@ -9,6 +10,7 @@ from deltav_functions import *
 #         See deltav_functions for work flow functions
 #----------------------------------------------------------------
 
+#Carry out all automation steps
 def automate(job_list):
     ############## String to Path #################
     for job in job_list:
@@ -38,17 +40,13 @@ def automate(job_list):
     if len(job_list) != 0:
         automate(job_list)
 
-
-
 running = True
 while running:
     try:
         today = dt.today()
         date = today.strftime("%m-%d-%y")
         text_file = open(text_path + '/' + date + '.txt', 'r')
-        #print(text_path + '/' + date + '.txt')
         jobList = text_file.read().split()
-        #print(jobList)
         text_file.close()
 
         if len(jobList) > 0:

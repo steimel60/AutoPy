@@ -2,19 +2,15 @@
 #       Define Step-by-Step Functions for Pix4D Mapper
 #----------------------------------------------------------------
 
-
 ##### Import Modules #####
 from Settings import *
 from pix_mapper_pics import *
-import re
-import glob
-import os
+import re, glob, os, time, subprocess
 import pyautogui as gui
-import time
 from time import sleep
 from datetime import date
-import subprocess
 
+#Set variable to get center of screen
 screen_center = (gui.size()[0] / 2, (gui.size()[1] / 2) - 50)
 
 #Maximize Pix Mapper after application is started
@@ -35,9 +31,6 @@ def start():
 
 #Create new project
 def new_project(job):
-    #check_for_image(pixBeforeNew)
-    #time.sleep(.3)
-    #gui.click()
     time.sleep(30)
     gui.hotkey('ctrl','n')
     time.sleep(.3)
@@ -173,10 +166,6 @@ def import_gcp(job):
 
 #Start proccessing job, if site, do first step, if vehicle, do all 3 steps
 def start_processing(job):
-    #########################################UNCOMMENT FOR FINAL###############################################
-    #########################################UNCOMMENT FOR FINAL###############################################
-    #########################################UNCOMMENT FOR FINAL###############################################
-    #########################################UNCOMMENT FOR FINAL###############################################
     check_for_image(pixDSMOrthoIndex)
     gui.click()
     if job[2] == 'site':
@@ -197,8 +186,9 @@ def copy_files(job):
     shutil.copy(pix_project + '\\' + job[0] + '_' + job[2] + '.p4d', new_job_folder + '\\' + job[0] + '_' + job[2] + processed_folder + pix4d_folder )
     return True
 
-##### USED IN OTHER FUNCS#####
-
+#----------------------------------------------------------------
+#                    Used in other functions
+#----------------------------------------------------------------
 #Check for image function to move cursor to image location
 def check_for_image(image):
     checking = True
