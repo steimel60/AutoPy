@@ -141,6 +141,7 @@ def import_gcp(job):
                 time.sleep(.3)
             gui.press('enter')
             time.sleep(.3)
+            #Searches through folders for drone and writes to file
             for file in glob.glob(new_job_folder + '/' + job[0] + '_' + job[2] + '/*'):
                 if 'Drone' in file:
                     gui.write(file)

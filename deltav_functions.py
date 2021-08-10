@@ -1,5 +1,5 @@
 #----------------------------------------------------------------
-#           This file defines work flow functions
+#             This file defines work flow functions
 #----------------------------------------------------------------
 
 #----------------------------------------------------------------
@@ -62,9 +62,9 @@ def updateList(currentJobList):
     for job in jobList:
         line = job[0] +','+job[1]+','+job[2]+','+job[3]
         text_file.write(line + ' ')
-
     text_file.close()
 
+    #Returns current job list
     return jobList
 
 
@@ -100,14 +100,16 @@ def create_local_files(job_list):
                         shutil.copytree(file, new_job_folder + '\\' + job[0] + '_' + job[2] + scan_folder + '\\' + job[2] + '\\' + ind + job[2])
                         i += 1
             print('')
+        #Report error for creating files
         except Exception as e:
             scene.error_report(job, str(e))
 
 ################## RUN SCENE #####################
+#Runs through all of the scene processing
 def run_scene(job):
     running = True
     while running:
-        #open FARO
+        #Open FARO
         print('Starting job: ' + job[0])
         window = Popen(scene_path, show='maximize')
         time.sleep(30)
@@ -142,6 +144,7 @@ def run_scene(job):
         running = False
 
 ################## RUN PIX #####################
+#Function the processes through Pix4D
 def run_pix(job):
     running = True
     while running:
@@ -174,6 +177,7 @@ def run_pix(job):
             break
 
 ################## GET GCP #####################
+#Takes the GCP zip folder and pulls from file to create new file with only lat, long, and alt
 def get_gcp(job):
     if job[2] == 'site':
         print('Searching for GCP folder')
